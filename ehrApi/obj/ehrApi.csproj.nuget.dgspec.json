@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi\\ehrApi.csproj": {}
+    "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi\\ehrApi.csproj": {
+    "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi\\ehrApi.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.csproj",
         "projectName": "ehrApi",
-        "projectPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi\\ehrApi.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"

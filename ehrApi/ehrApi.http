@@ -1,6 +1,0 @@
-@ehrApi_HostAddress = http://localhost:5107
-
-GET {{ehrApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

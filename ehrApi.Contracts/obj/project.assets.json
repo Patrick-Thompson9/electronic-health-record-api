@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.Contracts\\ehrApi.Contracts.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi.Contracts\\ehrApi.Contracts.csproj",
       "projectName": "ehrApi.Contracts",
-      "projectPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.Contracts\\ehrApi.Contracts.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi.Contracts\\ehrApi.Contracts.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi\\ehrApi.Contracts\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\cSharp\\electronic-health-record-api\\ehrApi.Contracts\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
