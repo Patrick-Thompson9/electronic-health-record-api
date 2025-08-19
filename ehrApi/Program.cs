@@ -1,7 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
-    //builder.Services.AddScoped<,>(); 
+    //builder.Services.AddScoped<IPatientServices,PatientServices>(); 
+    //builder.Services.AddScoped<IOrderServices,OrderServices>(); 
+    //builder.Services.AddScoped<ITestServices,TestServices>(); 
 }
 
 var app = builder.Build();
