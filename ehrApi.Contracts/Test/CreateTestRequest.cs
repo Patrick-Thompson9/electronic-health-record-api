@@ -1,6 +1,6 @@
 namespace ehrApi.Contracts.Test;
 
-public record TestRequest(
+public record CreateTestRequest(
     Guid OrderId,
     DateTime DateTimeOrdered,
     string Result
