@@ -69,7 +69,8 @@ POST /orders/
 ```
 {
     "id": "00000000-0000-0000-000000000",
-    "PatientId": "00000000-0000-0000-000000001",
+    "patientId": "00000000-0000-0000-000000001",
+    "notes":"Example order notes",
     "dateTimeCreated": "2025-08-18T13:00:00"
     "lastUpdated": "2025-08-18T13:00:00"
     "tests":
@@ -100,7 +101,7 @@ POST /tests/
     "id": "00000000-0000-0000-000000000",
     "orderId": "00000000-0000-0000-000000001",
     "dateTimeOrdered": "2025-08-18T13:00:00"
-    "dateTimeResults": "2025-08-19T12:00:00"
+    "dateTimeCreated": "2025-08-19T12:00:00"
     "result": "Negative",
 }
 ```
