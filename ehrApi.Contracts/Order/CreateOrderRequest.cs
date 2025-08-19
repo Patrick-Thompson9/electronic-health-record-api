@@ -1,10 +1,10 @@
-using TestModel = ehrApi.Contracts.Models.Test;
+using ehrApi.Contracts.Test;
 
 namespace ehrApi.Contracts.Order;
 
 public record CreateOrderRequest(
     Guid PatientId,
     string Notes,
-    List<TestModel>? Tests = null
+    List<CreateTestRequest>? Tests
 );
 
