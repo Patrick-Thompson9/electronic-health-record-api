@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ehrApi.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b01e4556163c75364f855079bf8f67335ac9914")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2b4a3993ec0551f954006cd3bea8912616842e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ehrApi.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ehrApi.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
