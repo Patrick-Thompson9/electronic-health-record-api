@@ -8,7 +8,7 @@ public class Order
     public DateTime DateTimeCreated { get; }
     public DateTime LastUpdated { get; }
     public string? Notes { get; }
-    public List<Test> Tests { get; }
+    public List<Test>? Tests { get; }
 
     public Order(
         Guid id,
@@ -17,7 +17,7 @@ public class Order
         DateTime dateTimeCreated,
         DateTime lastUpdated,
         string? notes,
-        List<Test> tests
+        List<Test>? tests
     )
     {
         Id = id;
