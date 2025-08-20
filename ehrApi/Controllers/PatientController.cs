@@ -45,7 +45,7 @@ public class PatientsController : ControllerBase
 
         // TODO: Implement the logic to create a patient
         return CreatedAtAction(
-            actionName: nameof(UpsertPatient),
+            actionName: nameof(CreatePatient),
             routeValues: new { id = patient.Id },
             value: response);
     }
@@ -54,7 +54,7 @@ public class PatientsController : ControllerBase
     public IActionResult GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
     {
         // TODO: Implement the logic to get all patient
-        return Ok("List of all patients, default limit is 20");
+        return Ok($"List of all patients, default limit is {limit}");
     }
 
     [HttpGet("{id:guid}")]
@@ -88,7 +88,7 @@ public class PatientsController : ControllerBase
             null
         );
 
-        patient = _patientService.UpsertPatient(patient);
+        _patientService.UpsertPatient(patient);
 
         return NoContent();
     }
@@ -96,7 +96,7 @@ public class PatientsController : ControllerBase
     [HttpDelete("{id:guid}")]
     public IActionResult DeletePatient(Guid id)
     {
-        // TODO: Implement the logic to delete a patient
+        _patientService.DeletePatient(id);
         // this must also delete all orders and tests tied to said patient
         return NoContent();
     }
