@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
 using ehrApi.Contracts.Order;
 
+using ehrApi.Models;
+
 namespace ehrApi.Controllers;
 
 [ApiController]
@@ -11,8 +13,29 @@ public class PatientsController : ControllerBase
     [HttpPost()]
     public IActionResult CreatePatient(CreatePatientRequest request)
     {
+        Patient patient = new Patient(
+            Guid.NewGuid(),
+            "request.MRN", // TODO: implement MRN generation
+            request.FirstName,
+            request.LastName,
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            null // TODO: either create orders as we go or null
+        );
+
+        PatientResponse patientResponse = new(
+            Id: patient.Id,
+            MRN: patient.MRN,
+            FirstName: patient.FirstName,
+            LastName: patient.LastName,
+            DateTimeCreated: patient.DateTimeCreated,
+            LastUpdated: patient.LastUpdated,
+            Orders: new List<OrderResponse>() // TODO: actually implement orders
+        );
+
+
         // TODO: Implement the logic to create a patient
-        return Ok(request);
+        return Ok(patientResponse);
     }
 
     [HttpGet()]
@@ -34,5 +57,12 @@ public class PatientsController : ControllerBase
     {
         // TODO: Implement the logic to upsert a patient
         return Ok(request);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeletePatient(Guid id)
+    {
+        // TODO: Implement the logic to delete a patient
+        return Ok(id);
     }
 }
