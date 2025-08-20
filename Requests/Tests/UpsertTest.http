@@ -1,4 +1,6 @@
-POST http://localhost:5107/api/tests
+@id=04118c92-0622-4614-aa0f-9672d1637785
+
+PUT http://localhost:5107/api/tests/{{id}}
 Content-Type: application/json
 
 {

@@ -1,0 +1,7 @@
+POST http://localhost:5107/api/orders
+Content-Type: application/json
+
+{
+    "PatientId": "04118c92-0622-4614-aa0f-9672d1637785",
+    "Notes": "Sample order notes"
+}
