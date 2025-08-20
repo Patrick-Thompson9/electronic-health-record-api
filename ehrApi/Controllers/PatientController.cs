@@ -23,6 +23,8 @@ public class PatientsController : ControllerBase
             null // TODO: either create orders as we go or null
         );
 
+        // TODO: Add service to handle db interaction
+
         PatientResponse patientResponse = new(
             Id: patient.Id,
             MRN: patient.MRN,
@@ -63,6 +65,7 @@ public class PatientsController : ControllerBase
     public IActionResult DeletePatient(Guid id)
     {
         // TODO: Implement the logic to delete a patient
+        // this must also delete all orders and tests tied to said patient
         return Ok(id);
     }
 }
