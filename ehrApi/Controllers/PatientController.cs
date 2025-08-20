@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
 using ehrApi.Contracts.Order;
+using ehrApi.Services.Patients;
 
 using ehrApi.Models;
 
@@ -10,10 +11,16 @@ namespace ehrApi.Controllers;
 [Route("api/[controller]")]
 public class PatientsController : ControllerBase
 {
+    private readonly IPatientService _patientService;
+    public PatientsController(IPatientService patientService)
+    {
+        _patientService = patientService;
+    }
+
     [HttpPost()]
     public IActionResult CreatePatient(CreatePatientRequest request)
     {
-        Patient patient = new Patient(
+        Patient patient = new(
             Guid.NewGuid(),
             "request.MRN", // TODO: implement MRN generation
             request.FirstName,
@@ -23,9 +30,9 @@ public class PatientsController : ControllerBase
             null // TODO: either create orders as we go or null
         );
 
-        // TODO: Add service to handle db interaction
+        _patientService.CreatePatient(patient);
 
-        PatientResponse patientResponse = new(
+        PatientResponse response = new(
             Id: patient.Id,
             MRN: patient.MRN,
             FirstName: patient.FirstName,
@@ -37,7 +44,10 @@ public class PatientsController : ControllerBase
 
 
         // TODO: Implement the logic to create a patient
-        return Ok(patientResponse);
+        return CreatedAtAction(
+            actionName: nameof(UpsertPatient),
+            routeValues: new { id = patient.Id },
+            value: response);
     }
 
     [HttpGet()]
@@ -50,15 +60,37 @@ public class PatientsController : ControllerBase
     [HttpGet("{id:guid}")]
     public IActionResult GetPatient(Guid id)
     {
-        // TODO: Implement the logic to get a patient
-        return Ok(id);
+        Patient patient = _patientService.GetPatient(id);
+
+        PatientResponse response = new(
+            patient.Id,
+            patient.MRN,
+            patient.FirstName,
+            patient.LastName,
+            patient.DateTimeCreated,
+            patient.LastUpdated,
+            new List<OrderResponse>()
+        );
+
+        return Ok(response);
     }
 
     [HttpPut("{id:guid}")]
     public IActionResult UpsertPatient(UpsertPatientRequest request)
     {
-        // TODO: Implement the logic to upsert a patient
-        return Ok(request);
+        Patient patient = new(
+            Guid.NewGuid(),
+            "0123456789",
+            request.FirstName,
+            request.LastName,
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            null
+        );
+
+        patient = _patientService.UpsertPatient(patient);
+
+        return NoContent();
     }
 
     [HttpDelete("{id:guid}")]
@@ -66,6 +98,6 @@ public class PatientsController : ControllerBase
     {
         // TODO: Implement the logic to delete a patient
         // this must also delete all orders and tests tied to said patient
-        return Ok(id);
+        return NoContent();
     }
 }
