@@ -2,7 +2,7 @@ using ehrApi.Models;
 
 namespace ehrApi.Services.Patients;
 
-public class PatientServices : IPatientService
+public class PatientService : IPatientService
 {
     // TODO: Currently this only stores patient data in this dictionary, need to figure out how to store orders and tests
     private static readonly Dictionary<Guid, Patient> _patients = new();

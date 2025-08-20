@@ -2,7 +2,7 @@ using ehrApi.Models;
 
 namespace ehrApi.Services.Orders;
 
-public class OrderServices : IOrderService
+public class OrderService : IOrderService
 {
     private static readonly Dictionary<Guid, Order> _orders = new();
 
