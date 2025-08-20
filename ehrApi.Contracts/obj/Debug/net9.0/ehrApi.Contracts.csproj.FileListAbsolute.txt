@@ -9,3 +9,15 @@ C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi\ehrApi.Contra
 C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi\ehrApi.Contracts\obj\Debug\net9.0\refint\ehrApi.Contracts.dll
 C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.pdb
 C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi\ehrApi.Contracts\obj\Debug\net9.0\ref\ehrApi.Contracts.dll
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\bin\Debug\net9.0\ehrApi.Contracts.deps.json
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\bin\Debug\net9.0\ehrApi.Contracts.dll
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\bin\Debug\net9.0\ehrApi.Contracts.pdb
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.AssemblyInfoInputs.cache
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.AssemblyInfo.cs
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.sourcelink.json
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.dll
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\refint\ehrApi.Contracts.dll
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ehrApi.Contracts.pdb
+C:\Users\User\Documents\cSharp\electronic-health-record-api\ehrApi.Contracts\obj\Debug\net9.0\ref\ehrApi.Contracts.dll
