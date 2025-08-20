@@ -6,7 +6,7 @@ namespace ehrApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TestController : ControllerBase
+public class TestsController : ControllerBase
 {
     [HttpPost()]
     public IActionResult CreateTest(CreateTestRequest request)

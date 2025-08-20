@@ -6,7 +6,7 @@ namespace ehrApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PatientController : ControllerBase
+public class PatientsController : ControllerBase
 {
     [HttpPost()]
     public IActionResult CreatePatient(CreatePatientRequest request)

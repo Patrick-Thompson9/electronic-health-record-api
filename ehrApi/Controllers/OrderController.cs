@@ -6,7 +6,7 @@ namespace ehrApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrderController : ControllerBase
+public class OrdersController : ControllerBase
 {
     [HttpPost()]
     public IActionResult CreateOrder(CreateOrderRequest request)
