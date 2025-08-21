@@ -26,6 +26,7 @@ public class PatientsController : ControllerBase
             "request.MRN", // TODO: implement MRN generation
             request.FirstName,
             request.LastName,
+            request.DateOfBirth,
             DateTime.UtcNow,
             DateTime.UtcNow,
             null // TODO: either create orders as we go or null
@@ -38,6 +39,7 @@ public class PatientsController : ControllerBase
             MRN: patient.MRN,
             FirstName: patient.FirstName,
             LastName: patient.LastName,
+            DateOfBirth: patient.DateOfBirth,
             DateTimeCreated: patient.DateTimeCreated,
             LastUpdated: patient.LastUpdated,
             Orders: new List<OrderResponse>() // TODO: actually implement orders
@@ -68,6 +70,7 @@ public class PatientsController : ControllerBase
             patient.MRN,
             patient.FirstName,
             patient.LastName,
+            patient.DateOfBirth,
             patient.DateTimeCreated,
             patient.LastUpdated,
             new List<OrderResponse>()
@@ -84,6 +87,7 @@ public class PatientsController : ControllerBase
             "0123456789",
             request.FirstName,
             request.LastName,
+            request.DateOfBirth,
             DateTime.UtcNow,
             DateTime.UtcNow,
             null

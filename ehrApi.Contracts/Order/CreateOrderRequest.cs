@@ -4,6 +4,7 @@ namespace ehrApi.Contracts.Order;
 
 public record CreateOrderRequest(
     Guid PatientId,
+    string OrderType,
     string Notes,
     List<CreateTestRequest>? Tests
 );

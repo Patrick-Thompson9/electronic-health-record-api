@@ -23,6 +23,7 @@ public class OrdersController : ControllerBase
             Guid.NewGuid(),
             request.PatientId,
             "0123456789", // implement logic to generare order number
+            request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
             request.Notes,
@@ -35,6 +36,7 @@ public class OrdersController : ControllerBase
             order.Id,
             order.PatientId,
             order.OrderNumber,
+            order.OrderType,
             order.DateTimeCreated,
             order.LastUpdated,
             order.Notes,
@@ -63,6 +65,7 @@ public class OrdersController : ControllerBase
             order.Id,
             order.PatientId,
             order.OrderNumber,
+            order.OrderType,
             order.DateTimeCreated,
             order.LastUpdated,
             order.Notes,
@@ -79,6 +82,7 @@ public class OrdersController : ControllerBase
             Guid.NewGuid(),
             request.PatientId,
             "0123456789", // implement logic to generare order number
+            request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
             request.Notes,

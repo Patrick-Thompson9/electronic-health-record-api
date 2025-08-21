@@ -2,11 +2,11 @@ namespace ehrApi.Models;
 
 public class Test
 {
-    public Guid Id { get; }
-    public Guid OrderId { get; }
-    public DateTime DateTimeOrdered { get; }
-    public DateTime DateTimeCreated { get; }
-    public string Result { get; }
+    public Guid Id { get; set; }
+    public Guid OrderId { get; set; }
+    public DateTime DateTimeOrdered { get; set; }
+    public DateTime DateTimeCreated { get; set; }
+    public string Result { get; set; }
 
     public Test(
         Guid id,
