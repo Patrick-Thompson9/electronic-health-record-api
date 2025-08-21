@@ -1,31 +1,48 @@
+using ehrApi.Data;
 using ehrApi.Models;
+using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 
 namespace ehrApi.Services.Patients;
 
 public class PatientService : IPatientService
 {
     // TODO: Currently this only stores patient data in this dictionary, need to figure out how to store orders and tests
-    private static readonly Dictionary<Guid, Patient> _patients = new();
+    private readonly EhrApiContext _context;
 
-    public void CreatePatient(Patient patient)
+    public PatientService(EhrApiContext context)
     {
-        _patients.Add(patient.Id, patient);
+        _context = context;
     }
 
-    public Patient GetPatient(Guid id)
+    public async Task CreatePatient(Patient patient)
     {
-
-        return _patients[id];
+        _context.Patients.Add(patient);
+        await _context.SaveChangesAsync();
     }
 
-    public Patient UpsertPatient(Patient patient)
+    public async Task<Patient?> GetPatient(Guid id)
     {
-        _patients[patient.Id] = patient;
+        return await _context.Patients
+        .Include(patient => patient.Orders)
+        .ThenInclude(order => order.Test)
+        .FirstOrDefaultAsync(patient => patient.Id == id);
+    }
+
+    public async Task<Patient> UpsertPatient(Patient patient)
+    {
+        _context.Patients.Update(patient);
+        await _context.SaveChangesAsync();
         return patient;
     }
 
-    public void DeletePatient(Guid id)
+    public async Task DeletePatient(Guid id)
     {
-        _patients.Remove(id);
+        var patient = await _context.Patients.FindAsync(id);
+        if (patient != null)
+        {
+            _context.Patients.Remove(patient);
+            await _context.SaveChangesAsync();
+        }
     }
 }

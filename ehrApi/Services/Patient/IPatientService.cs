@@ -4,8 +4,8 @@ namespace ehrApi.Services.Patients;
 
 public interface IPatientService
 {
-    void CreatePatient(Patient patient);
-    Patient GetPatient(Guid id);
-    Patient UpsertPatient(Patient patient);
-    void DeletePatient(Guid id);
+    Task CreatePatient(Patient patient);
+    Task<Patient?> GetPatient(Guid id);
+    Task<Patient> UpsertPatient(Patient patient);
+    Task DeletePatient(Guid id);
 }

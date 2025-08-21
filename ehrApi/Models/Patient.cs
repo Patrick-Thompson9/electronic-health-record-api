@@ -10,7 +10,7 @@ public class Patient
     public DateTime DateTimeCreated { get; set; }
     public DateTime LastUpdated { get; set; }
 
-    public ICollection<Order>? Orders { get; set; }
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public Patient(
         Guid id,
@@ -20,7 +20,7 @@ public class Patient
         DateOnly dateOfBirth,
         DateTime dateTimeCreated,
         DateTime lastUpdated,
-        ICollection<Order>? orders
+        ICollection<Order> orders
     )
     {
         Id = id;

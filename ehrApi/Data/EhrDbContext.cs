@@ -10,6 +10,24 @@ public class EhrApiContext : DbContext
     public DbSet<Test> Tests { get; set; }
 
     public EhrApiContext(DbContextOptions<EhrApiContext> options) : base(options)
+    { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        // Patient → Orders (One-to-Many)
+        modelBuilder.Entity<Patient>()
+            .HasMany(patient => patient.Orders)
+            .WithOne(order => order.Patient)
+            .HasForeignKey(o => o.PatientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Order → TestResult (One-to-One)
+        modelBuilder.Entity<Order>()
+            .HasOne(order => order.Test)
+            .WithOne(test => test.Order)
+            .HasForeignKey<Test>(test => test.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

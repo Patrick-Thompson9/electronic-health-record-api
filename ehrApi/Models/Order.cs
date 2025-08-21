@@ -3,12 +3,15 @@ namespace ehrApi.Models;
 public class Order
 {
     public Guid Id { get; set; }
-    public Guid PatientId { get; set; }
     public string OrderNumber { get; set; }
     public string OrderType { get; set; }
     public DateTime DateTimeCreated { get; set; }
     public DateTime LastUpdated { get; set; }
     public string? Notes { get; set; }
+
+    public Guid PatientId { get; set; }
+    public Patient? Patient { get; set; }
+
     public Test? Test { get; set; }
 
     public Order(

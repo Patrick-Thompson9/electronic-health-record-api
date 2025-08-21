@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ehrApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+083840244450ea1a012433f97b3e48f02b1ae221")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aaf65d6d84d2055998ab25a3e76c52014c73649d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ehrApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ehrApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

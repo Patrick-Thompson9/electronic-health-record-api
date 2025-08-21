@@ -2,6 +2,6 @@ POST http://localhost:5107/api/patients
 Content-Type: application/json
 
 {
-    "FirstName": "John Doe",
+    "FirstName": "John",
     "LastName": "Doe"
 }

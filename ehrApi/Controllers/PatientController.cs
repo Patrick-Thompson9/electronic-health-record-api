@@ -29,7 +29,7 @@ public class PatientsController : ControllerBase
             request.DateOfBirth,
             DateTime.UtcNow,
             DateTime.UtcNow,
-            null // TODO: either create orders as we go or null
+            new List<Order>() // TODO: actually create orders map order creation service?
         );
 
         _patientService.CreatePatient(patient);
@@ -61,9 +61,13 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public IActionResult GetPatient(Guid id)
+    public async Task<ActionResult> GetPatient(Guid id)
     {
-        Patient patient = _patientService.GetPatient(id);
+        Patient? patient = await _patientService.GetPatient(id);
+        if (patient == null)
+        {
+            return NotFound();
+        }
 
         PatientResponse response = new(
             patient.Id,
@@ -90,7 +94,7 @@ public class PatientsController : ControllerBase
             request.DateOfBirth,
             DateTime.UtcNow,
             DateTime.UtcNow,
-            null
+            new List<Order>()
         );
 
         _patientService.UpsertPatient(patient);
