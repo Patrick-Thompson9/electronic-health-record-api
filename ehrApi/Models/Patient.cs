@@ -3,7 +3,7 @@ namespace ehrApi.Models;
 public class Patient
 {
     public Guid Id { get; set; }
-    public string MRN { get; set; }
+    public string Mrn { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateOnly DateOfBirth { get; set; }
@@ -19,17 +19,15 @@ public class Patient
         string lastName,
         DateOnly dateOfBirth,
         DateTime dateTimeCreated,
-        DateTime lastUpdated,
-        ICollection<Order> orders
+        DateTime lastUpdated
     )
     {
         Id = id;
-        MRN = mrn;
+        Mrn = mrn;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
         DateTimeCreated = dateTimeCreated;
         LastUpdated = lastUpdated;
-        Orders = orders;
     }
 }

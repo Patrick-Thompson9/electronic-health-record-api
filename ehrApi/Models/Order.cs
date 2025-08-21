@@ -21,8 +21,7 @@ public class Order
         string orderType,
         DateTime dateTimeCreated,
         DateTime lastUpdated,
-        string? notes,
-        Test? test
+        string? notes
     )
     {
         Id = id;
@@ -32,6 +31,5 @@ public class Order
         DateTimeCreated = dateTimeCreated;
         LastUpdated = lastUpdated;
         Notes = notes;
-        Test = test;
     }
 }

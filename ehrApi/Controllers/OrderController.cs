@@ -26,8 +26,7 @@ public class OrdersController : ControllerBase
             request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
-            request.Notes,
-            null
+            request.Notes
         );
 
         _orderService.CreateOrder(order);
@@ -85,8 +84,7 @@ public class OrdersController : ControllerBase
             request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
-            request.Notes,
-            null
+            request.Notes
         );
 
         _orderService.UpsertOrder(order);

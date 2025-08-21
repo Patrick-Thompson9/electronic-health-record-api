@@ -16,14 +16,12 @@ public class EhrApiContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Patient → Orders (One-to-Many)
         modelBuilder.Entity<Patient>()
             .HasMany(patient => patient.Orders)
             .WithOne(order => order.Patient)
             .HasForeignKey(o => o.PatientId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Order → TestResult (One-to-One)
         modelBuilder.Entity<Order>()
             .HasOne(order => order.Test)
             .WithOne(test => test.Order)

@@ -1,7 +1,6 @@
 using ehrApi.Data;
 using ehrApi.Models;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 
 namespace ehrApi.Services.Patients;
 
@@ -30,7 +29,22 @@ public class PatientService : IPatientService
 
     public async Task<Patient> UpsertPatient(Patient patient)
     {
-        _context.Patients.Update(patient);
+        var existingPatient = await _context.Patients.FindAsync(patient.Id);
+        if (existingPatient == null)
+        {
+
+            await CreatePatient(patient);
+            return patient;
+        }
+        else
+        {
+            // not a great solution for something with many properties but good enough for now.
+            existingPatient.Mrn = patient.Mrn;
+            existingPatient.FirstName = patient.FirstName;
+            existingPatient.DateOfBirth = patient.DateOfBirth;
+            existingPatient.LastUpdated = DateTime.UtcNow;
+            existingPatient.Orders = patient.Orders;
+        }
         await _context.SaveChangesAsync();
         return patient;
     }

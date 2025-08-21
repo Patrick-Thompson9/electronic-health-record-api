@@ -14,14 +14,14 @@ public class Test
         Guid id,
         Guid orderId,
         DateTime dateTimeOrdered,
-        DateTime lastUpdated,
+        DateTime dateTimeCreated,
         string result
     )
     {
         Id = id;
         OrderId = orderId;
         DateTimeOrdered = dateTimeOrdered;
-        DateTimeCreated = lastUpdated;
+        DateTimeCreated = dateTimeCreated;
         Result = result;
     }
 }

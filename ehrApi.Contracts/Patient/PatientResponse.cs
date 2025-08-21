@@ -5,7 +5,7 @@ namespace ehrApi.Contracts.Patient;
 public record PatientResponse(
     // TODO: Add date of birth
     Guid Id,
-    string MRN,
+    string Mrn,
     string FirstName,
     string LastName,
     DateOnly DateOfBirth,

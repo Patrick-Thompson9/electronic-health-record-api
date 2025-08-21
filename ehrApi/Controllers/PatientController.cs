@@ -18,7 +18,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpPost()]
-    public IActionResult CreatePatient(CreatePatientRequest request)
+    public async Task<ActionResult> CreatePatient(CreatePatientRequest request)
 
     {
         Patient patient = new(
@@ -28,15 +28,14 @@ public class PatientsController : ControllerBase
             request.LastName,
             request.DateOfBirth,
             DateTime.UtcNow,
-            DateTime.UtcNow,
-            new List<Order>() // TODO: actually create orders map order creation service?
+            DateTime.UtcNow // TODO: actually create orders map order creation service?
         );
 
-        _patientService.CreatePatient(patient);
+        await _patientService.CreatePatient(patient);
 
         PatientResponse response = new(
             Id: patient.Id,
-            MRN: patient.MRN,
+            Mrn: patient.Mrn,
             FirstName: patient.FirstName,
             LastName: patient.LastName,
             DateOfBirth: patient.DateOfBirth,
@@ -53,12 +52,12 @@ public class PatientsController : ControllerBase
             value: response);
     }
 
-    [HttpGet()]
-    public IActionResult GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
-    {
-        // TODO: Implement the logic to get all patient
-        return Ok($"List of all patients, default limit is {limit}");
-    }
+    // [HttpGet()]
+    // public async Task<ActionResult> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
+    // {
+    //     // TODO: Implement the logic to get all patient
+    //     return Ok($"List of all patients, default limit is {limit}");
+    // }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult> GetPatient(Guid id)
@@ -71,7 +70,7 @@ public class PatientsController : ControllerBase
 
         PatientResponse response = new(
             patient.Id,
-            patient.MRN,
+            patient.Mrn,
             patient.FirstName,
             patient.LastName,
             patient.DateOfBirth,
@@ -84,28 +83,26 @@ public class PatientsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public IActionResult UpsertPatient(UpsertPatientRequest request)
+    public async Task<ActionResult> UpsertPatient(Guid id, UpsertPatientRequest request)
     {
         Patient patient = new(
-            Guid.NewGuid(),
-            "0123456789",
+            id,
+            "request.MRN", // TODO: implement MRN generation
             request.FirstName,
             request.LastName,
             request.DateOfBirth,
             DateTime.UtcNow,
-            DateTime.UtcNow,
-            new List<Order>()
+            DateTime.UtcNow // TODO: actually create orders map order creation service?
         );
 
-        _patientService.UpsertPatient(patient);
-
+        await _patientService.UpsertPatient(patient);
         return NoContent();
     }
 
     [HttpDelete("{id:guid}")]
-    public IActionResult DeletePatient(Guid id)
+    public async Task<ActionResult> DeletePatient(Guid id)
     {
-        _patientService.DeletePatient(id);
+        await _patientService.DeletePatient(id);
         // this must also delete all orders and tests tied to said patient
         return NoContent();
     }
