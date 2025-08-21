@@ -6,6 +6,6 @@ public record UpsertOrderRequest(
     Guid PatientId,
     string OrderType,
     string Notes,
-    List<UpsertTestRequest>? Tests
+    UpsertTestRequest? Test
 );
 

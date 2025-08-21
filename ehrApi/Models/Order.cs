@@ -9,7 +9,7 @@ public class Order
     public DateTime DateTimeCreated { get; set; }
     public DateTime LastUpdated { get; set; }
     public string? Notes { get; set; }
-    public List<Test>? Tests { get; set; }
+    public Test? Test { get; set; }
 
     public Order(
         Guid id,
@@ -19,7 +19,7 @@ public class Order
         DateTime dateTimeCreated,
         DateTime lastUpdated,
         string? notes,
-        List<Test>? tests
+        Test? test
     )
     {
         Id = id;
@@ -29,6 +29,6 @@ public class Order
         DateTimeCreated = dateTimeCreated;
         LastUpdated = lastUpdated;
         Notes = notes;
-        Tests = tests;
+        Test = test;
     }
 }

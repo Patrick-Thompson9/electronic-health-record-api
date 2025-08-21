@@ -40,7 +40,7 @@ public class OrdersController : ControllerBase
             order.DateTimeCreated,
             order.LastUpdated,
             order.Notes,
-            new List<TestResponse>()
+            null // TODO: Add test response
         );
 
         return CreatedAtAction(
@@ -69,7 +69,7 @@ public class OrdersController : ControllerBase
             order.DateTimeCreated,
             order.LastUpdated,
             order.Notes,
-            new List<TestResponse>()
+            null // TODO: Add test response
         );
 
         return Ok(response);

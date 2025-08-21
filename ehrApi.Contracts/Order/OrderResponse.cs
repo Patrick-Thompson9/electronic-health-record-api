@@ -10,5 +10,5 @@ public record OrderResponse(
     DateTime DateTimeCreated,
     DateTime LastUpdated,
     string? Notes,
-    List<TestResponse>? Tests
+    TestResponse? Test
 );
