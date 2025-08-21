@@ -7,7 +7,6 @@ namespace ehrApi.Services.Patients;
 
 public class PatientService : IPatientService
 {
-    // TODO: Currently this only stores patient data in this dictionary, need to figure out how to store orders and tests
     private readonly EhrApiContext _context;
 
     public PatientService(EhrApiContext context)

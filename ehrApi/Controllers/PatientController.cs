@@ -19,7 +19,7 @@ public class PatientsController : ControllerBase
 
     [HttpPost()]
     public IActionResult CreatePatient(CreatePatientRequest request)
-    // TODO: for scalability chnage to public async Task<ActionResult<PatientResponse>>  
+
     {
         Patient patient = new(
             Guid.NewGuid(),
