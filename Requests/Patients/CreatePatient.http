@@ -3,5 +3,13 @@ Content-Type: application/json
 
 {
     "FirstName": "John",
-    "LastName": "Doe"
+    "LastName": "Doe",
+    "Orders": 
+    [
+        {
+            "PatientId": "04118c92-0622-4614-aa0f-9672d1637785",
+            "OrderType": "Brain Cancer",
+            "Notes": "Sample order notes"
+        }
+    ]
 }
