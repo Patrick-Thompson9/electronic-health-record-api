@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
 using ehrApi.Contracts.Order;
+using ehrApi.Contracts.Test;
 using ehrApi.Services.Patients;
 
 using ehrApi.Models;
@@ -52,12 +53,43 @@ public class PatientsController : ControllerBase
             value: response);
     }
 
-    // [HttpGet()]
-    // public async Task<ActionResult> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
-    // {
-    //     // TODO: Implement the logic to get all patient
-    //     return Ok($"List of all patients, default limit is {limit}");
-    // }
+    [HttpGet()]
+    public async Task<ActionResult> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
+    {
+        List<Patient> patients = await _patientService.GetAllPatients();
+        var limitedPatients = patients.Take(limit).ToList();
+
+        List<PatientResponse> response = limitedPatients.Select(patient => new PatientResponse(
+            patient.Id,
+            patient.Mrn,
+            patient.FirstName,
+            patient.LastName,
+            patient.DateOfBirth,
+            patient.DateTimeCreated,
+            patient.LastUpdated,
+            patient.Orders != null ?
+            patient.Orders.Take(limit) // forcing the same limit on orders too
+            .Select(order => new OrderResponse(
+                order.Id,
+                order.PatientId,
+                order.OrderNumber,
+                order.OrderType,
+                order.DateTimeCreated,
+                order.LastUpdated,
+                order.Notes,
+                order.Test != null ? new TestResponse(
+                    order.Test.Id,
+                    order.Test.OrderId,
+                    order.Test.TestType,
+                    order.Test.Result,
+                    order.Test.DateTimeCreated,
+                    order.Test.LastUpdated
+                ) : null
+            )).ToList() : null
+        )).ToList();
+
+        return Ok(response);
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult> GetPatient(Guid id)

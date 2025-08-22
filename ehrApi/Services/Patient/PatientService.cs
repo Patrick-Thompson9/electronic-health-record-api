@@ -27,6 +27,14 @@ public class PatientService : IPatientService
         .FirstOrDefaultAsync(patient => patient.Id == id);
     }
 
+    public async Task<List<Patient>> GetAllPatients()
+    {
+        return await _context.Patients
+        .Include(patient => patient.Orders)
+        .ThenInclude(order => order.Test)
+        .ToListAsync();
+    }
+
     public async Task<Patient> UpsertPatient(Patient patient)
     {
         var existingPatient = await _context.Patients.FindAsync(patient.Id);
