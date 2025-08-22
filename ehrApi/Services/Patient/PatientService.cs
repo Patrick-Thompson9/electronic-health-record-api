@@ -97,6 +97,7 @@ public class PatientService : IPatientService
         else
         {
             // not a great solution for something with many properties
+            // Currently cant edit MRN with this update function
             existingPatient.FirstName = patient.FirstName;
             existingPatient.DateOfBirth = patient.DateOfBirth;
             existingPatient.LastUpdated = DateTime.UtcNow;
