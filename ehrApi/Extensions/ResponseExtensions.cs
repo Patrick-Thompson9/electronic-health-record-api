@@ -5,7 +5,7 @@ using ehrApi.Models;
 
 namespace ehrApi.Extensions;
 
-public static class MappingExtensions
+public static class MappingResponseExtensions
 {
     public static PatientResponse ToResponse(this Patient patient)
     {
