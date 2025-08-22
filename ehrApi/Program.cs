@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ehrApi.Services.Patients;
 using ehrApi.Services.Orders;
 using ehrApi.Services.Tests;
+using ehrApi.Services.Generators;
 using ehrApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IPatientService, PatientService>(); // Registering interfaces for DI container
     builder.Services.AddScoped<IOrderService, OrderService>();
     builder.Services.AddScoped<ITestService, TestService>();
+    builder.Services.AddScoped<IMrnGenerator, MrnGenerator>();
+    builder.Services.AddScoped<IOrderNumberGenerator, OrderNumberGenerator>();
 }
 
 var app = builder.Build();
