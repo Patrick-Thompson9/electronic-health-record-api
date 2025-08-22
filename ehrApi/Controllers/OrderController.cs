@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Order;
+using ehrApi.Contracts.Test;
 using ehrApi.Models;
 using ehrApi.Services.Orders;
 using ehrApi.Services.Patients;
@@ -56,11 +57,32 @@ public class OrdersController : ControllerBase
             value: response);
     }
 
-    // [HttpGet()]
-    // public async Task<IActionResult> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
-    // {
-    //     return Ok("List of all orders, default limit is 20");
-    // }
+    [HttpGet()]
+    public async Task<IActionResult> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
+    {
+        List<Order> orders = await _orderService.GetAllOrders();
+        var limitedOrders = orders.Take(limit).ToList();
+
+        var response = limitedOrders.Select(order => new OrderResponse(
+            order.Id,
+            order.PatientId,
+            order.OrderNumber,
+            order.OrderType,
+            order.DateTimeCreated,
+            order.LastUpdated,
+            order.Notes,
+            order.Test != null ? new TestResponse(
+                order.Test.Id,
+                order.Test.OrderId,
+                order.Test.TestType,
+                order.Test.Result,
+                order.Test.DateTimeCreated,
+                order.Test.LastUpdated
+            ) : null
+        )).ToList();
+
+        return Ok(response);
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetOrder(Guid id)

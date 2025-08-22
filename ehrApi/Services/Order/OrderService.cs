@@ -26,6 +26,13 @@ public class OrderService : IOrderService
         .FirstOrDefaultAsync(order => order.Id == id);
     }
 
+    public async Task<List<Order>> GetAllOrders()
+    {
+        return await _context.Orders
+            .Include(order => order.Test)
+            .ToListAsync();
+    }
+
     public async Task<Order> UpsertOrder(Order order)
     {
         var existingOrder = await _context.Orders.FindAsync(order.Id);
