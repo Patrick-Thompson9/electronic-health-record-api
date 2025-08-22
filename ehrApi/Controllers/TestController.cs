@@ -3,6 +3,7 @@ using ehrApi.Contracts.Test;
 using ehrApi.Models;
 using ehrApi.Services.Tests;
 using ehrApi.Services.Orders;
+using ehrApi.Extensions;
 
 namespace ehrApi.Controllers;
 
@@ -39,14 +40,7 @@ public class TestsController : ControllerBase
 
         await _testService.CreateTest(test);
 
-        TestResponse response = new(
-            test.Id,
-            test.OrderId,
-            test.TestType,
-            test.Result,
-            test.DateTimeCreated,
-            test.LastUpdated
-        );
+        TestResponse response = test.ToResponse();
 
         return CreatedAtAction(
             actionName: nameof(CreateTest),
@@ -58,15 +52,9 @@ public class TestsController : ControllerBase
     public async Task<IActionResult> GetAllTests([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Test> tests = await _testService.GetAllTests();
+        var limitedTests = tests.Take(limit).ToList();
 
-        var response = tests.Select(test => new TestResponse(
-            test.Id,
-            test.OrderId,
-            test.TestType,
-            test.Result,
-            test.DateTimeCreated,
-            test.LastUpdated
-        )).ToList();
+        var response = tests.Select(test => test.ToResponse()).ToList();
 
         return Ok(response);
     }
@@ -80,15 +68,7 @@ public class TestsController : ControllerBase
             return NotFound();
         }
 
-        TestResponse response = new(
-            test.Id,
-            test.OrderId,
-            test.TestType,
-            test.Result,
-            test.DateTimeCreated,
-            test.LastUpdated
-        );
-
+        TestResponse response = test.ToResponse();
         return Ok(response);
     }
 
