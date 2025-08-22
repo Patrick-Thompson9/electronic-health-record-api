@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
 using ehrApi.Services.Patients;
+using ehrApi.Services.Generators;
 using ehrApi.Extensions;
 
 using ehrApi.Models;
@@ -12,9 +13,11 @@ namespace ehrApi.Controllers;
 public class PatientsController : ControllerBase
 {
     private readonly IPatientService _patientService;
-    public PatientsController(IPatientService patientService)
+    private readonly IMrnGenerator _mrnGenerator;
+    public PatientsController(IPatientService patientService, IMrnGenerator mrnGenerator)
     {
         _patientService = patientService;
+        _mrnGenerator = mrnGenerator;
     }
 
     [HttpPost()]
@@ -23,7 +26,7 @@ public class PatientsController : ControllerBase
     {
         Patient patient = new(
             Guid.NewGuid(),
-            "request.MRN", // TODO: implement MRN generation
+            await _mrnGenerator.GenerateMrn(),
             request.FirstName,
             request.LastName,
             request.DateOfBirth,
@@ -31,7 +34,15 @@ public class PatientsController : ControllerBase
             DateTime.UtcNow // TODO: actually create orders map order creation service?
         );
 
-        await _patientService.CreatePatient(patient);
+        // create orders if they were included in request.
+        if (request.Orders?.Count > 0)
+        {
+            await _patientService.CreatePatientWithOrders(patient);
+        }
+        else
+        {
+            await _patientService.CreatePatient(patient);
+        }
 
         PatientResponse response = patient.ToResponse();
         return CreatedAtAction(
@@ -69,7 +80,7 @@ public class PatientsController : ControllerBase
     {
         Patient patient = new(
             id,
-            "request.MRN", // TODO: implement MRN generation
+            await _mrnGenerator.GenerateMrn(), // wasteful call if not creating new patient
             request.FirstName,
             request.LastName,
             request.DateOfBirth,

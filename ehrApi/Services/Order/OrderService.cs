@@ -43,7 +43,6 @@ public class OrderService : IOrderService
         }
         else
         {
-            existingOrder.OrderNumber = order.OrderNumber;
             existingOrder.OrderType = order.OrderType;
             existingOrder.Notes = order.Notes;
             existingOrder.LastUpdated = DateTime.UtcNow;

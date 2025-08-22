@@ -3,6 +3,7 @@ using ehrApi.Contracts.Order;
 using ehrApi.Models;
 using ehrApi.Services.Orders;
 using ehrApi.Services.Patients;
+using ehrApi.Services.Generators;
 using ehrApi.Extensions;
 
 namespace ehrApi.Controllers;
@@ -13,10 +14,15 @@ public class OrdersController : ControllerBase
 {
     private readonly IOrderService _orderService;
     private readonly IPatientService _patientService;
-    public OrdersController(IOrderService orderService, IPatientService patientService)
+    private readonly IOrderNumberGenerator _orderNumberGenerator;
+    public OrdersController(
+        IOrderService orderService,
+        IPatientService patientService,
+        IOrderNumberGenerator orderNumberGenerator)
     {
         _orderService = orderService;
         _patientService = patientService;
+        _orderNumberGenerator = orderNumberGenerator;
     }
 
     [HttpPost()]
@@ -31,7 +37,7 @@ public class OrdersController : ControllerBase
         Order order = new(
             Guid.NewGuid(),
             request.PatientId,
-            "0123456789", // implement logic to generare order number
+            await _orderNumberGenerator.GenerateOrderNumber(),
             request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
@@ -80,7 +86,7 @@ public class OrdersController : ControllerBase
         Order order = new(
             id,
             request.PatientId,
-            "0123456789", // implement logic to generare order number
+            await _orderNumberGenerator.GenerateOrderNumber(), // wasteful if not creating new order
             request.OrderType,
             DateTime.UtcNow,
             DateTime.UtcNow,
