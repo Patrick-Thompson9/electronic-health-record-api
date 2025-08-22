@@ -31,7 +31,7 @@ public class TestService : ITestService
 
     public async Task<Test> UpsertTest(Test test)
     {
-        var existingTest = await _context.Tests.FindAsync(test.Id);
+        Test? existingTest = await _context.Tests.FindAsync(test.Id);
         if (existingTest == null)
         {
 
@@ -50,7 +50,7 @@ public class TestService : ITestService
 
     public async Task<bool> DeleteTest(Guid id)
     {
-        var test = await _context.Tests.FindAsync(id);
+        Test? test = await _context.Tests.FindAsync(id);
         if (test != null)
         {
             _context.Tests.Remove(test);

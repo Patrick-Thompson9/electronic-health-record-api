@@ -58,6 +58,26 @@ public class PatientService : IPatientService
         .FirstOrDefaultAsync(patient => patient.Id == id);
     }
 
+    public async Task<Patient?> GetPatientByMrn(string mrn)
+    {
+        return await _context.Patients
+        .Include(patient => patient.Orders)
+        .ThenInclude(order => order.Test)
+        .FirstOrDefaultAsync(patient => patient.Mrn == mrn);
+    }
+
+    public async Task<List<Order>?> GetOrdersByMrn(string mrn)
+    {
+        Patient? patient = await _context.Patients
+        .Include(patient => patient.Orders)
+        .ThenInclude(order => order.Test)
+        .FirstOrDefaultAsync(patient => patient.Mrn == mrn);
+
+        if (patient == null) return null;
+
+        return patient.Orders.ToList();
+    }
+
     public async Task<List<Patient>> GetAllPatients()
     {
         return await _context.Patients
@@ -68,7 +88,7 @@ public class PatientService : IPatientService
 
     public async Task<Patient> UpsertPatient(Patient patient)
     {
-        var existingPatient = await _context.Patients.FindAsync(patient.Id);
+        Patient? existingPatient = await _context.Patients.FindAsync(patient.Id);
         if (existingPatient == null)
         {
 
@@ -88,7 +108,7 @@ public class PatientService : IPatientService
 
     public async Task<bool> DeletePatient(Guid id)
     {
-        var patient = await _context.Patients.FindAsync(id);
+        Patient? patient = await _context.Patients.FindAsync(id);
         if (patient != null)
         {
             _context.Patients.Remove(patient);

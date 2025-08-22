@@ -58,9 +58,9 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Order> orders = await _orderService.GetAllOrders();
-        var limitedOrders = orders.Take(limit).ToList();
+        List<Order> limitedOrders = orders.Take(limit).ToList();
 
-        var response = limitedOrders.Select(order => order.ToResponse()).ToList();
+        List<OrderResponse> response = limitedOrders.Select(order => order.ToResponse()).ToList();
 
         return Ok(response);
     }

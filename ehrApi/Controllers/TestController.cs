@@ -51,9 +51,9 @@ public class TestsController : ControllerBase
     public async Task<IActionResult> GetAllTests([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Test> tests = await _testService.GetAllTests();
-        var limitedTests = tests.Take(limit).ToList();
+        List<Test> limitedTests = tests.Take(limit).ToList();
 
-        var response = tests.Select(test => test.ToResponse()).ToList();
+        List<TestResponse> response = tests.Select(test => test.ToResponse()).ToList();
 
         return Ok(response);
     }

@@ -1,5 +1,6 @@
 using ehrApi.Data;
 using ehrApi.Models;
+using ehrApi.Services.Patients;
 using Microsoft.EntityFrameworkCore;
 
 namespace ehrApi.Services.Orders;
@@ -36,7 +37,7 @@ public class OrderService : IOrderService
 
     public async Task<Order> UpsertOrder(Order order)
     {
-        var existingOrder = await _context.Orders.FindAsync(order.Id);
+        Order? existingOrder = await _context.Orders.FindAsync(order.Id);
         if (existingOrder == null)
         {
             await CreateOrder(order); // save changes is called in this function
@@ -56,7 +57,7 @@ public class OrderService : IOrderService
 
     public async Task<bool> DeleteOrder(Guid id)
     {
-        var order = await _context.Orders.FindAsync(id);
+        Order? order = await _context.Orders.FindAsync(id);
         if (order != null)
         {
             _context.Orders.Remove(order);

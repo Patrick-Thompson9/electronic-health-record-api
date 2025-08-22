@@ -1,0 +1,3 @@
+@mrn=0000000001
+
+GET http://localhost:5107/api/patients/mrn/{{mrn}}

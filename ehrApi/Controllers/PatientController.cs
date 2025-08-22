@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
+using ehrApi.Contracts.Order;
 using ehrApi.Services.Patients;
 using ehrApi.Services.Generators;
 using ehrApi.Extensions;
@@ -55,7 +56,7 @@ public class PatientsController : ControllerBase
     public async Task<ActionResult> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Patient> patients = await _patientService.GetAllPatients();
-        var limitedPatients = patients.Take(limit).ToList();
+        List<Patient> limitedPatients = patients.Take(limit).ToList();
 
         List<PatientResponse> response = limitedPatients.Select(patient => patient.ToResponse()).ToList();
 
@@ -66,12 +67,29 @@ public class PatientsController : ControllerBase
     public async Task<ActionResult> GetPatient(Guid id)
     {
         Patient? patient = await _patientService.GetPatient(id);
-        if (patient == null)
-        {
-            return NotFound();
-        }
+        if (patient == null) return NotFound();
 
         PatientResponse response = patient.ToResponse();
+        return Ok(response);
+    }
+
+    [HttpGet("mrn/{mrn}")]
+    public async Task<ActionResult> GetPatientByMrn(string mrn)
+    {
+        Patient? patient = await _patientService.GetPatientByMrn(mrn);
+        if (patient == null) return NotFound($"Did not find patient with MRN {mrn}");
+
+        PatientResponse response = patient.ToResponse();
+        return Ok(response);
+    }
+
+    [HttpGet("mrn/{mrn}/orders")]
+    public async Task<ActionResult> GetOrdersByMrn(string mrn)
+    {
+        List<Order>? orders = await _patientService.GetOrdersByMrn(mrn);
+        if (orders == null) return NotFound($"Did not find patient with MRN {mrn}");
+
+        List<OrderResponse> response = orders.Select(order => order.ToResponse()).ToList();
         return Ok(response);
     }
 
