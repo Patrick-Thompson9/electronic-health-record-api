@@ -1,6 +1,7 @@
 using ehrApi.Data;
 using ehrApi.Models;
 using ehrApi.Services.Orders;
+using ehrApi.Services.Generators;
 using Microsoft.EntityFrameworkCore;
 
 namespace ehrApi.Services.Patients;
@@ -9,11 +10,16 @@ public class PatientService : IPatientService
 {
     private readonly EhrApiContext _context;
     private readonly IOrderService _orderService;
+    private readonly IOrderNumberGenerator _orderNumberGenerator;
 
-    public PatientService(EhrApiContext context, IOrderService orderService)
+    public PatientService(
+        EhrApiContext context,
+        IOrderService orderService,
+        IOrderNumberGenerator orderNumberGenerator)
     {
         _context = context;
         _orderService = orderService;
+        _orderNumberGenerator = orderNumberGenerator;
     }
 
     public async Task CreatePatient(Patient patient)
@@ -31,7 +37,7 @@ public class PatientService : IPatientService
             Order order = new(
                 Guid.NewGuid(),
                 patient.Id,
-                "0123456789", // implement logic to generare order number
+                await _orderNumberGenerator.GenerateOrderNumber(),
                 orderReq.OrderType,
                 DateTime.UtcNow,
                 DateTime.UtcNow,
@@ -70,8 +76,7 @@ public class PatientService : IPatientService
         }
         else
         {
-            // not a great solution for something with many properties but good enough for now.
-            existingPatient.Mrn = patient.Mrn;
+            // not a great solution for something with many properties
             existingPatient.FirstName = patient.FirstName;
             existingPatient.DateOfBirth = patient.DateOfBirth;
             existingPatient.LastUpdated = DateTime.UtcNow;
