@@ -3,9 +3,10 @@ namespace ehrApi.Models;
 public class Test
 {
     public Guid Id { get; set; }
-    public DateTime DateTimeOrdered { get; set; }
-    public DateTime DateTimeCreated { get; set; }
+    public string TestType { get; set; }
     public string Result { get; set; }
+    public DateTime DateTimeCreated { get; set; }
+    public DateTime LastUpdated { get; set; }
 
     public Guid OrderId { get; set; }
     public Order? Order { get; set; }
@@ -13,15 +14,17 @@ public class Test
     public Test(
         Guid id,
         Guid orderId,
-        DateTime dateTimeOrdered,
+        string testType,
+        string result,
         DateTime dateTimeCreated,
-        string result
+        DateTime lastUpdated
     )
     {
         Id = id;
         OrderId = orderId;
-        DateTimeOrdered = dateTimeOrdered;
-        DateTimeCreated = dateTimeCreated;
+        TestType = testType;
         Result = result;
+        DateTimeCreated = dateTimeCreated;
+        LastUpdated = lastUpdated;
     }
 }

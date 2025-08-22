@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Order;
 using ehrApi.Models;
 using ehrApi.Services.Orders;
-using ehrApi.Contracts.Test;
+using ehrApi.Services.Patients;
 
 namespace ehrApi.Controllers;
 
@@ -11,14 +11,22 @@ namespace ehrApi.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly IOrderService _orderService;
-    public OrdersController(IOrderService orderService)
+    private readonly IPatientService _patientService;
+    public OrdersController(IOrderService orderService, IPatientService patientService)
     {
         _orderService = orderService;
+        _patientService = patientService;
     }
 
     [HttpPost()]
-    public IActionResult CreateOrder(CreateOrderRequest request)
+    public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {
+        // first check if patient is real
+        Patient? patient = await _patientService.GetPatient(request.PatientId);
+        if (patient == null)
+        {
+            return BadRequest("Invalid PatientId");
+        }
         Order order = new(
             Guid.NewGuid(),
             request.PatientId,
@@ -29,7 +37,7 @@ public class OrdersController : ControllerBase
             request.Notes
         );
 
-        _orderService.CreateOrder(order);
+        await _orderService.CreateOrder(order);
 
         OrderResponse response = new(
             order.Id,
@@ -48,17 +56,22 @@ public class OrdersController : ControllerBase
             value: response);
     }
 
-    [HttpGet()]
-    public IActionResult GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
-    {
-        return Ok("List of all orders, default limit is 20");
-    }
+    // [HttpGet()]
+    // public async Task<IActionResult> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
+    // {
+    //     return Ok("List of all orders, default limit is 20");
+    // }
 
     [HttpGet("{id:guid}")]
-    public IActionResult GetOrder(Guid id)
+    public async Task<IActionResult> GetOrder(Guid id)
     {
 
-        Order order = _orderService.GetOrder(id);
+        Order? order = await _orderService.GetOrder(id);
+        if (order == null)
+        {
+            return NotFound();
+        }
+
 
         OrderResponse response = new(
             order.Id,
@@ -75,10 +88,10 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public IActionResult UpsertOrder(UpsertOrderRequest request)
+    public async Task<IActionResult> UpsertOrder(Guid id, UpsertOrderRequest request)
     {
         Order order = new(
-            Guid.NewGuid(),
+            id,
             request.PatientId,
             "0123456789", // implement logic to generare order number
             request.OrderType,
@@ -87,16 +100,15 @@ public class OrdersController : ControllerBase
             request.Notes
         );
 
-        _orderService.UpsertOrder(order);
+        await _orderService.UpsertOrder(order);
 
         return NoContent();
     }
 
     [HttpDelete("{id:guid}")]
-    public IActionResult DeleteOrder(Guid id)
+    public async Task<IActionResult> DeleteOrder(Guid id)
     {
-        _orderService.DeleteOrder(id);
-        // TODO: implement logic to delete all associated tests
-        return NoContent();
+        bool deleted = await _orderService.DeleteOrder(id);
+        return deleted ? NoContent() : NotFound();
     }
 }

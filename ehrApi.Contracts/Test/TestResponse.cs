@@ -3,7 +3,8 @@ namespace ehrApi.Contracts.Test;
 public record TestResponse(
     Guid Id,
     Guid OrderId,
-    DateTime DateTimeOrdered,
+    string TestType,
+    string Result,
     DateTime DateTimeCreated,
-    string Result
+    DateTime LastUpdated
 );

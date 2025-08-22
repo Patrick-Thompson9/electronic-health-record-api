@@ -4,8 +4,9 @@ namespace ehrApi.Services.Tests;
 
 public interface ITestService
 {
-    void CreateTest(Test test);
-    Test GetTest(Guid id);
-    Test UpsertTest(Test test);
-    void DeleteTest(Guid id);
+    Task CreateTest(Test test);
+    Task<Test?> GetTest(Guid id);
+    Task<List<Test>> GetAllTests();
+    Task<Test> UpsertTest(Test test);
+    Task<bool> DeleteTest(Guid id);
 }

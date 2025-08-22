@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ehrApi.Data;
 
@@ -10,9 +11,11 @@ using ehrApi.Data;
 namespace ehrApi.Migrations
 {
     [DbContext(typeof(EhrApiContext))]
-    partial class EhrApiContextModelSnapshot : ModelSnapshot
+    [Migration("20250822104721_AddLastUpdatedToTest")]
+    partial class AddLastUpdatedToTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
@@ -89,6 +92,9 @@ namespace ehrApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTimeCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateTimeOrdered")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastUpdated")

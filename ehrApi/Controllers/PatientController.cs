@@ -102,8 +102,7 @@ public class PatientsController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeletePatient(Guid id)
     {
-        await _patientService.DeletePatient(id);
-        // this must also delete all orders and tests tied to said patient
-        return NoContent();
+        bool deleted = await _patientService.DeletePatient(id);
+        return deleted ? NoContent() : NotFound();
     }
 }

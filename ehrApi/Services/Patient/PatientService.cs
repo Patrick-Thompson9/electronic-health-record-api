@@ -34,7 +34,6 @@ public class PatientService : IPatientService
         {
 
             await CreatePatient(patient);
-            return patient;
         }
         else
         {
@@ -44,18 +43,20 @@ public class PatientService : IPatientService
             existingPatient.DateOfBirth = patient.DateOfBirth;
             existingPatient.LastUpdated = DateTime.UtcNow;
             existingPatient.Orders = patient.Orders;
+            await _context.SaveChangesAsync();
         }
-        await _context.SaveChangesAsync();
-        return patient;
+        return existingPatient ?? patient;
     }
 
-    public async Task DeletePatient(Guid id)
+    public async Task<bool> DeletePatient(Guid id)
     {
         var patient = await _context.Patients.FindAsync(id);
         if (patient != null)
         {
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 }

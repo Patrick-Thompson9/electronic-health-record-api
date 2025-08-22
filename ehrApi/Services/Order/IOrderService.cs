@@ -4,8 +4,8 @@ namespace ehrApi.Services.Orders;
 
 public interface IOrderService
 {
-    void CreateOrder(Order order);
-    Order GetOrder(Guid id);
-    Order UpsertOrder(Order order);
-    void DeleteOrder(Guid id);
+    Task CreateOrder(Order order);
+    Task<Order?> GetOrder(Guid id);
+    Task<Order> UpsertOrder(Order order);
+    Task<bool> DeleteOrder(Guid id);
 }
