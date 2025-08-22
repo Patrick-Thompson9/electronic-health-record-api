@@ -1,0 +1,15 @@
+POST http://localhost:5107/api/patients
+Content-Type: application/json
+
+{
+    "FirstName": "Patrick",
+    "LastName": "Thompson",
+    "DateOfBirth": "2000-01-06",
+    "Orders": [
+        {
+            "PatientId": "dd4189ba-b26f-4d01-b410-069f0114fdf5",
+            "OrderType": "C#",
+            "Notes": "Injected with Dependency"
+        }
+    ]
+}

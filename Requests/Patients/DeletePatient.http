@@ -1,2 +1,2 @@
-@id=0a877415-f9eb-4de2-aa23-efd074b3cf12
+@id=f5bd2784-029a-4c4f-905c-799fee96f8e0
 DELETE http://localhost:5107/api/patients/{{id}}
