@@ -32,7 +32,6 @@ public class TestsController : ControllerBase
         Test test = new(
             Guid.NewGuid(),
             request.OrderId,
-            request.TestType,
             request.Result,
             DateTime.UtcNow,
             DateTime.UtcNow
@@ -78,7 +77,6 @@ public class TestsController : ControllerBase
         Test test = new(
             id,
             request.OrderId,
-            request.TestType,
             request.Result,
             DateTime.UtcNow,
             DateTime.UtcNow

@@ -3,7 +3,6 @@ namespace ehrApi.Models;
 public class Test
 {
     public Guid Id { get; set; }
-    public string TestType { get; set; }
     public string Result { get; set; }
     public DateTime DateTimeCreated { get; set; }
     public DateTime LastUpdated { get; set; }
@@ -14,7 +13,6 @@ public class Test
     public Test(
         Guid id,
         Guid orderId,
-        string testType,
         string result,
         DateTime dateTimeCreated,
         DateTime lastUpdated
@@ -22,7 +20,6 @@ public class Test
     {
         Id = id;
         OrderId = orderId;
-        TestType = testType;
         Result = result;
         DateTimeCreated = dateTimeCreated;
         LastUpdated = lastUpdated;

@@ -39,7 +39,6 @@ public static class MappingRequestExtensions
         return new Test(
             Guid.NewGuid(),
             request.OrderId,
-            request.TestType,
             request.Result,
             DateTime.UtcNow,
             DateTime.UtcNow

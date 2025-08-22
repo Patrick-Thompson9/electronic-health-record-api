@@ -40,7 +40,6 @@ public static class MappingResponseExtensions
         return new TestResponse(
             test.Id,
             test.OrderId,
-            test.TestType,
             test.Result,
             test.DateTimeCreated,
             test.LastUpdated
