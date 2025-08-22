@@ -13,10 +13,11 @@ public class OrderService : IOrderService
         _context = context;
     }
 
-    public async Task CreateOrder(Order order)
+    public async Task CreateOrder(Order order, bool save = true)
     {
         _context.Orders.Add(order);
-        await _context.SaveChangesAsync();
+
+        if (save) await _context.SaveChangesAsync();
     }
 
     public async Task<Order?> GetOrder(Guid id)

@@ -1,5 +1,6 @@
 using ehrApi.Data;
 using ehrApi.Models;
+using ehrApi.Services.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace ehrApi.Services.Patients;
@@ -7,15 +8,39 @@ namespace ehrApi.Services.Patients;
 public class PatientService : IPatientService
 {
     private readonly EhrApiContext _context;
+    private readonly IOrderService _orderService;
 
-    public PatientService(EhrApiContext context)
+    public PatientService(EhrApiContext context, IOrderService orderService)
     {
         _context = context;
+        _orderService = orderService;
     }
 
     public async Task CreatePatient(Patient patient)
     {
         _context.Patients.Add(patient);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task CreatePatientWithOrders(Patient patient)
+    {
+        //TODO: Make transactional so errors mid way are caught
+        _context.Patients.Add(patient);
+        foreach (var orderReq in patient.Orders)
+        {
+            Order order = new(
+                Guid.NewGuid(),
+                patient.Id,
+                "0123456789", // implement logic to generare order number
+                orderReq.OrderType,
+                DateTime.UtcNow,
+                DateTime.UtcNow,
+                orderReq.Notes
+                );
+
+            await _orderService.CreateOrder(order, false);
+        }
+        ;
         await _context.SaveChangesAsync();
     }
 
