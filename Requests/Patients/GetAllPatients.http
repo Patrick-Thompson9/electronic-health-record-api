@@ -1,1 +1,1 @@
-GET http://localhost:5107/api/patients?limit=1
+GET http://localhost:5107/api/patients?limit=10

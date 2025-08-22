@@ -3,5 +3,6 @@ Content-Type: application/json
 
 {
     "FirstName": "Patrick",
-    "LastName": "Thompson"
+    "LastName": "Thompson",
+    "DateOfBirth": "2000-01-06"
 }

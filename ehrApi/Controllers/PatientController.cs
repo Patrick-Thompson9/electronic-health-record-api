@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ehrApi.Contracts.Patient;
-using ehrApi.Contracts.Order;
-using ehrApi.Contracts.Test;
 using ehrApi.Services.Patients;
+using ehrApi.Extensions;
 
 using ehrApi.Models;
 
@@ -34,19 +33,7 @@ public class PatientsController : ControllerBase
 
         await _patientService.CreatePatient(patient);
 
-        PatientResponse response = new(
-            Id: patient.Id,
-            Mrn: patient.Mrn,
-            FirstName: patient.FirstName,
-            LastName: patient.LastName,
-            DateOfBirth: patient.DateOfBirth,
-            DateTimeCreated: patient.DateTimeCreated,
-            LastUpdated: patient.LastUpdated,
-            Orders: new List<OrderResponse>() // TODO: actually implement orders
-        );
-
-
-        // TODO: Implement the logic to create a patient
+        PatientResponse response = patient.ToResponse();
         return CreatedAtAction(
             actionName: nameof(CreatePatient),
             routeValues: new { id = patient.Id },
@@ -59,34 +46,7 @@ public class PatientsController : ControllerBase
         List<Patient> patients = await _patientService.GetAllPatients();
         var limitedPatients = patients.Take(limit).ToList();
 
-        List<PatientResponse> response = limitedPatients.Select(patient => new PatientResponse(
-            patient.Id,
-            patient.Mrn,
-            patient.FirstName,
-            patient.LastName,
-            patient.DateOfBirth,
-            patient.DateTimeCreated,
-            patient.LastUpdated,
-            patient.Orders != null ?
-            patient.Orders.Take(limit) // forcing the same limit on orders too
-            .Select(order => new OrderResponse(
-                order.Id,
-                order.PatientId,
-                order.OrderNumber,
-                order.OrderType,
-                order.DateTimeCreated,
-                order.LastUpdated,
-                order.Notes,
-                order.Test != null ? new TestResponse(
-                    order.Test.Id,
-                    order.Test.OrderId,
-                    order.Test.TestType,
-                    order.Test.Result,
-                    order.Test.DateTimeCreated,
-                    order.Test.LastUpdated
-                ) : null
-            )).ToList() : null
-        )).ToList();
+        List<PatientResponse> response = limitedPatients.Select(patient => patient.ToResponse()).ToList();
 
         return Ok(response);
     }
@@ -100,17 +60,7 @@ public class PatientsController : ControllerBase
             return NotFound();
         }
 
-        PatientResponse response = new(
-            patient.Id,
-            patient.Mrn,
-            patient.FirstName,
-            patient.LastName,
-            patient.DateOfBirth,
-            patient.DateTimeCreated,
-            patient.LastUpdated,
-            new List<OrderResponse>()
-        );
-
+        PatientResponse response = patient.ToResponse();
         return Ok(response);
     }
 
