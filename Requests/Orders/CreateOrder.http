@@ -2,7 +2,7 @@ POST http://localhost:5107/api/orders
 Content-Type: application/json
 
 {
-    "PatientId": "dd4189ba-b26f-4d01-b410-069f0114fdf5",
-    "OrderType": "C#",
-    "Notes": "Injected with Dependency"
+    "PatientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
+    "OrderType": "React",
+    "Notes": "<div></div>"
 }

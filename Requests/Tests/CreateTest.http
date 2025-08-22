@@ -2,8 +2,8 @@ POST http://localhost:5107/api/tests
 Content-Type: application/json
 
 {
-    "OrderId": "67653899-B04E-40E2-B2D8-CCACFE0256DB",
-    "TestType": "C# Capable",
+    "OrderId": "94a7bcb9-41ef-430c-bc95-6f139a503ebd",
+    "TestType": "React",
     "Result": "Positive",
     "DateTimeOrdered": "2023-10-01T12:00:00"
 }
