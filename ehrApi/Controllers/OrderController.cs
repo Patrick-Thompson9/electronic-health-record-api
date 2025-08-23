@@ -65,6 +65,16 @@ public class OrdersController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("orderNumber/{orderNumber}")]
+    public async Task<IActionResult> GetOrderByOrderNumber(string orderNumber)
+    {
+        Order? order = await _orderService.GetOrderByOrderNumber(orderNumber);
+        if (order == null) return NotFound($"No order found with order number: {orderNumber}");
+
+        OrderResponse response = order.ToResponse();
+        return Ok(response);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetOrder(Guid id)
     {

@@ -36,6 +36,13 @@ public class OrderService : IOrderService
             .ToListAsync();
     }
 
+    public async Task<Order?> GetOrderByOrderNumber(string orderNumber)
+    {
+        return await _context.Orders
+        .Include(order => order.Test)
+        .FirstOrDefaultAsync(order => order.OrderNumber == orderNumber);
+    }
+
     public async Task<(Order, bool)> UpsertOrder(Order order)
     {
         bool wasCreated;
