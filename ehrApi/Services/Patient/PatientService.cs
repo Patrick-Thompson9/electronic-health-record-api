@@ -53,7 +53,7 @@ public class PatientService : IPatientService
     public async Task<Patient?> GetPatient(Guid id)
     {
         return await _context.Patients
-        .Include(patient => patient.Orders)
+        .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
         .ThenInclude(order => order.Test)
         .FirstOrDefaultAsync(patient => patient.Id == id);
     }
@@ -61,7 +61,7 @@ public class PatientService : IPatientService
     public async Task<Patient?> GetPatientByMrn(string mrn)
     {
         return await _context.Patients
-        .Include(patient => patient.Orders)
+        .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
         .ThenInclude(order => order.Test)
         .FirstOrDefaultAsync(patient => patient.Mrn == mrn);
     }
@@ -69,7 +69,7 @@ public class PatientService : IPatientService
     public async Task<List<Order>?> GetOrdersByMrn(string mrn)
     {
         Patient? patient = await _context.Patients
-        .Include(patient => patient.Orders)
+        .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
         .ThenInclude(order => order.Test)
         .FirstOrDefaultAsync(patient => patient.Mrn == mrn);
 
@@ -81,27 +81,31 @@ public class PatientService : IPatientService
     public async Task<List<Patient>> GetAllPatients()
     {
         return await _context.Patients
-        .Include(patient => patient.Orders)
+        .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
         .ThenInclude(order => order.Test)
+        .OrderByDescending(patient => patient.Mrn)
         .ToListAsync();
     }
 
     public async Task<Patient> UpsertPatient(Patient patient)
     {
-        Patient? existingPatient = await _context.Patients.FindAsync(patient.Id);
+        Patient? existingPatient = await _context.Patients
+        .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
+        .ThenInclude(order => order.Test)
+        .FirstOrDefaultAsync(p => p.Id == patient.Id);
+
         if (existingPatient == null)
         {
-
             await CreatePatient(patient);
         }
         else
         {
             // not a great solution for something with many properties
-            // Currently cant edit MRN with this update function
+            // Currently cant edit MRN or Orders with this update function
             existingPatient.FirstName = patient.FirstName;
+            existingPatient.LastName = patient.LastName;
             existingPatient.DateOfBirth = patient.DateOfBirth;
             existingPatient.LastUpdated = DateTime.UtcNow;
-            existingPatient.Orders = patient.Orders;
             await _context.SaveChangesAsync();
         }
         return existingPatient ?? patient;

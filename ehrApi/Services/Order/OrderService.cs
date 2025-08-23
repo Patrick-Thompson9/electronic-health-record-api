@@ -32,24 +32,28 @@ public class OrderService : IOrderService
     {
         return await _context.Orders
             .Include(order => order.Test)
+            .OrderByDescending(order => order.OrderNumber)
             .ToListAsync();
     }
 
     public async Task<Order> UpsertOrder(Order order)
     {
-        Order? existingOrder = await _context.Orders.FindAsync(order.Id);
+        Order? existingOrder = await _context.Orders
+        .Include(order => order.Test)
+        .FirstOrDefaultAsync(o => o.Id == order.Id);
+
         if (existingOrder == null)
         {
             await CreateOrder(order); // save changes is called in this function
         }
         else
         {
+            // Cant edit order number or test with this set up
             existingOrder.OrderType = order.OrderType;
             existingOrder.Notes = order.Notes;
             existingOrder.LastUpdated = DateTime.UtcNow;
             existingOrder.Patient = order.Patient;
             existingOrder.PatientId = order.PatientId;
-            existingOrder.Test = order.Test;
             await _context.SaveChangesAsync();
         }
         return existingOrder ?? order;

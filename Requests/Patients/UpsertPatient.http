@@ -1,4 +1,4 @@
-@id=dd4189ba-b26f-4d01-b410-069f0114fdf5
+@id=f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e2
 
 PUT http://localhost:5107/api/patients/{{id}}
 Content-Type: application/json
@@ -6,5 +6,15 @@ Content-Type: application/json
 {
     "FirstName": "Patrick",
     "LastName": "Thompson",
-    "DateOfBirth": "2000-01-06"
+    "DateOfBirth": "2000-01-06",
+    "Orders":
+    [
+        {
+            "id": "0f3933c4-fd3f-4162-babf-ff786e9ba45b",
+            "patientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
+            "orderNumber": "000000001",
+            "orderType": "C# !!",
+            "Notes": "Test Upsert"
+        }
+    ]
 }

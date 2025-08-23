@@ -106,8 +106,9 @@ public class PatientsController : ControllerBase
             DateTime.UtcNow // TODO: actually create orders map order creation service?
         );
 
-        await _patientService.UpsertPatient(patient);
-        return NoContent();
+        patient = await _patientService.UpsertPatient(patient);
+        PatientResponse response = patient.ToResponse();
+        return Ok(response);
     }
 
     [HttpDelete("{id:guid}")]

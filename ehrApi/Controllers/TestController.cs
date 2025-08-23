@@ -82,9 +82,10 @@ public class TestsController : ControllerBase
             DateTime.UtcNow
         );
 
-        await _testService.UpsertTest(test);
+        test = await _testService.UpsertTest(test);
 
-        return NoContent(); // TODO: Return updated value instead
+        TestResponse response = test.ToResponse();
+        return Ok(response);
     }
 
     [HttpDelete("{id:guid}")]

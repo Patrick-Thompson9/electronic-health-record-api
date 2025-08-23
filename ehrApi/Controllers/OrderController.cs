@@ -93,9 +93,9 @@ public class OrdersController : ControllerBase
             request.Notes
         );
 
-        await _orderService.UpsertOrder(order);
-
-        return NoContent();
+        order = await _orderService.UpsertOrder(order);
+        OrderResponse response = order.ToResponse();
+        return Ok(response);
     }
 
     [HttpDelete("{id:guid}")]

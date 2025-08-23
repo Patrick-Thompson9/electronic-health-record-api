@@ -26,7 +26,9 @@ public class TestService : ITestService
 
     public async Task<List<Test>> GetAllTests()
     {
-        return await _context.Tests.ToListAsync();
+        return await _context.Tests
+        .OrderByDescending(test => test.DateTimeCreated)
+        .ToListAsync();
     }
 
     public async Task<Test> UpsertTest(Test test)
@@ -34,7 +36,6 @@ public class TestService : ITestService
         Test? existingTest = await _context.Tests.FindAsync(test.Id);
         if (existingTest == null)
         {
-
             await CreateTest(test);
         }
         else

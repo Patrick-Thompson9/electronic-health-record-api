@@ -1,9 +1,10 @@
-@id=04118c92-0622-4614-aa0f-9672d1637785
+@id=94a7bcb9-41ef-430c-bc95-6f139a503ebd
 
 PUT http://localhost:5107/api/orders/{{id}}
 Content-Type: application/json
 
 {
-    "PatientId": "04118c92-0622-4614-aa0f-9672d1637785",
-    "Notes": "sample order notes 2.",
+    "PatientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
+    "OrderType": "C# !!",
+    "Notes": "Test order notes."
 }
