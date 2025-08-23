@@ -1,10 +1,10 @@
-@id=04118c92-0622-4614-aa0f-9672d1637785
+@id=2cc5e8e7-34de-4708-882f-cbd0939a418c
 
 PUT http://localhost:5107/api/tests/{{id}}
 Content-Type: application/json
 
 {
-    "OrderId": "00000000-0000-0000-0000-000000000000",
+    "OrderId": "ca275ab8-0510-415e-9373-97e02f94ced9",
     "DateTimeOrdered": "2023-10-01T12:00:00",
-    "Result": "Negative",
+    "Result": "Positive"
 }

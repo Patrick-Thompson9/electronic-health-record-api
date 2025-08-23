@@ -1,3 +1,3 @@
-@id=04118c92-0622-4614-aa0f-9672d1637785
+@id=2cc5e8e7-34de-4708-882f-cbd0939a418c
 
 GET http://localhost:5107/api/tests/{{id}}
