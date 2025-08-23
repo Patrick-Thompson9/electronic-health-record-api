@@ -10,6 +10,6 @@ public interface IPatientService
     Task<Patient?> GetPatientByMrn(string mrn);
     Task<List<Order>?> GetOrdersByMrn(string mrn);
     Task<List<Patient>> GetAllPatients();
-    Task<Patient> UpsertPatient(Patient patient);
+    Task<(Patient, bool)> UpsertPatient(Patient patient);
     Task<bool> DeletePatient(Guid id);
 }

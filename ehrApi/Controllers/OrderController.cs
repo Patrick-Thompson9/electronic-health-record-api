@@ -93,9 +93,12 @@ public class OrdersController : ControllerBase
             request.Notes
         );
 
-        order = await _orderService.UpsertOrder(order);
-        OrderResponse response = order.ToResponse();
-        return Ok(response);
+        (Order newOrder, bool wasCreated) = await _orderService.UpsertOrder(order);
+        OrderResponse response = newOrder.ToResponse();
+        return wasCreated ? CreatedAtAction(
+            actionName: nameof(UpsertOrder),
+            routeValues: new { id = order.Id },
+            value: response) : Ok(response);
     }
 
     [HttpDelete("{id:guid}")]

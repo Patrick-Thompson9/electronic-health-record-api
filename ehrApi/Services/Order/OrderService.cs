@@ -36,8 +36,10 @@ public class OrderService : IOrderService
             .ToListAsync();
     }
 
-    public async Task<Order> UpsertOrder(Order order)
+    public async Task<(Order, bool)> UpsertOrder(Order order)
     {
+        bool wasCreated;
+
         Order? existingOrder = await _context.Orders
         .Include(order => order.Test)
         .FirstOrDefaultAsync(o => o.Id == order.Id);
@@ -45,6 +47,7 @@ public class OrderService : IOrderService
         if (existingOrder == null)
         {
             await CreateOrder(order); // save changes is called in this function
+            wasCreated = true;
         }
         else
         {
@@ -55,8 +58,10 @@ public class OrderService : IOrderService
             existingOrder.Patient = order.Patient;
             existingOrder.PatientId = order.PatientId;
             await _context.SaveChangesAsync();
+
+            wasCreated = false;
         }
-        return existingOrder ?? order;
+        return (existingOrder ?? order, wasCreated);
     }
 
     public async Task<bool> DeleteOrder(Guid id)

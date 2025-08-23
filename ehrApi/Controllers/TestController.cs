@@ -82,10 +82,13 @@ public class TestsController : ControllerBase
             DateTime.UtcNow
         );
 
-        test = await _testService.UpsertTest(test);
+        (Test newTest, bool wasCreated) = await _testService.UpsertTest(test);
 
-        TestResponse response = test.ToResponse();
-        return Ok(response);
+        TestResponse response = newTest.ToResponse();
+        return wasCreated ? CreatedAtAction(
+            actionName: nameof(UpsertTest),
+            routeValues: new { id = test.Id },
+            value: response) : Ok(response);
     }
 
     [HttpDelete("{id:guid}")]

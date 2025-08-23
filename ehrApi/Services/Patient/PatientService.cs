@@ -87,8 +87,10 @@ public class PatientService : IPatientService
         .ToListAsync();
     }
 
-    public async Task<Patient> UpsertPatient(Patient patient)
+    public async Task<(Patient, bool)> UpsertPatient(Patient patient)
     {
+        bool wasCreated;
+
         Patient? existingPatient = await _context.Patients
         .Include(patient => patient.Orders.OrderByDescending(order => order.OrderNumber))
         .ThenInclude(order => order.Test)
@@ -97,6 +99,7 @@ public class PatientService : IPatientService
         if (existingPatient == null)
         {
             await CreatePatient(patient);
+            wasCreated = true;
         }
         else
         {
@@ -107,8 +110,10 @@ public class PatientService : IPatientService
             existingPatient.DateOfBirth = patient.DateOfBirth;
             existingPatient.LastUpdated = DateTime.UtcNow;
             await _context.SaveChangesAsync();
+
+            wasCreated = false;
         }
-        return existingPatient ?? patient;
+        return (existingPatient ?? patient, wasCreated);
     }
 
     public async Task<bool> DeletePatient(Guid id)

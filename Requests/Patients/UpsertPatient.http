@@ -1,12 +1,12 @@
-@id=f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e2
+@id=08aa1011-cf1f-4ce1-9956-b06d5ad004c0
 
 PUT http://localhost:5107/api/patients/{{id}}
 Content-Type: application/json
 
 {
-    "FirstName": "Patrick",
+    "FirstName": "Sue",
     "LastName": "Thompson",
-    "DateOfBirth": "2000-01-06",
+    "DateOfBirth": "1963-10-22",
     "Orders":
     [
         {

@@ -31,12 +31,15 @@ public class TestService : ITestService
         .ToListAsync();
     }
 
-    public async Task<Test> UpsertTest(Test test)
+    public async Task<(Test, bool)> UpsertTest(Test test)
     {
+        bool wasCreated;
+
         Test? existingTest = await _context.Tests.FindAsync(test.Id);
         if (existingTest == null)
         {
             await CreateTest(test);
+            wasCreated = true;
         }
         else
         {
@@ -45,8 +48,10 @@ public class TestService : ITestService
             existingTest.LastUpdated = DateTime.UtcNow;
             existingTest.Order = test.Order;
             await _context.SaveChangesAsync();
+
+            wasCreated = false;
         }
-        return existingTest ?? test;
+        return (existingTest ?? test, wasCreated);
     }
 
     public async Task<bool> DeleteTest(Guid id)
