@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    //app.UseExceptionHandler("/error"); TODO: uncomment this when done debugging
+    app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.UseRouting();
     app.MapControllers();
