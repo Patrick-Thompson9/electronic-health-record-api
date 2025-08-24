@@ -1,0 +1,9 @@
+POST http://localhost:5107/api/patients/submit-test
+Content-Type: application/json
+
+{
+    "MRN": "0000000001",
+    "OrderNumber": "0000000002",
+    "OrderType": "TEST Submit",
+    "Result": "Positive"
+}

@@ -29,7 +29,7 @@ public class TestsController : ControllerBase
             return BadRequest("Invalid OrderId");
         }
 
-        Test test = new(
+        Test test = new(        // maybe this (and other examples) should be moved to the services to separate all logic
             Guid.NewGuid(),
             request.OrderId,
             request.Result,

@@ -6,6 +6,7 @@ using ehrApi.Services.Generators;
 using ehrApi.Extensions;
 
 using ehrApi.Models;
+using ehrApi.Contracts.Test;
 
 namespace ehrApi.Controllers;
 
@@ -120,5 +121,17 @@ public class PatientsController : ControllerBase
     {
         bool deleted = await _patientService.DeletePatient(id);
         return deleted ? NoContent() : NotFound();
+    }
+
+    [HttpPost("submit-test")]
+    public async Task<ActionResult> SubmitTest(SubmitTestRequest request)
+    {
+        Patient? patient = await _patientService.SubmitTest(request.MRN, request.OrderNumber, request.Result);
+
+        if (patient == null) return NotFound($"Invalid MRN: {request.MRN} or Order Number: {request.OrderNumber}");
+
+        PatientResponse response = patient.ToResponse();
+        return CreatedAtAction(
+            actionName: nameof(SubmitTest), value: response);
     }
 }

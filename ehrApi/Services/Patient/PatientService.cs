@@ -1,6 +1,7 @@
 using ehrApi.Data;
 using ehrApi.Models;
 using ehrApi.Services.Orders;
+using ehrApi.Services.Tests;
 using ehrApi.Services.Generators;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,16 +11,19 @@ public class PatientService : IPatientService
 {
     private readonly EhrApiContext _context;
     private readonly IOrderService _orderService;
+    private readonly ITestService _testService;
     private readonly IOrderNumberGenerator _orderNumberGenerator;
 
     public PatientService(
         EhrApiContext context,
         IOrderService orderService,
-        IOrderNumberGenerator orderNumberGenerator)
+        IOrderNumberGenerator orderNumberGenerator,
+        ITestService testService)
     {
         _context = context;
         _orderService = orderService;
         _orderNumberGenerator = orderNumberGenerator;
+        _testService = testService;
     }
 
     public async Task CreatePatient(Patient patient)
@@ -126,5 +130,25 @@ public class PatientService : IPatientService
             return true;
         }
         return false;
+    }
+
+    public async Task<Patient?> SubmitTest(string mrn, string orderNumber, string result)
+    {
+        Patient? patient = await GetPatientByMrn(mrn);
+        if (patient == null) return null;
+
+        Order? order = patient.Orders.FirstOrDefault(order => order.OrderNumber == orderNumber);
+        if (order == null) return null;
+
+        Test test = new(
+            Guid.NewGuid(),
+            order.Id,
+            result,
+            DateTime.UtcNow,
+            DateTime.UtcNow
+        );
+
+        await _testService.CreateTest(test);
+        return patient;
     }
 }

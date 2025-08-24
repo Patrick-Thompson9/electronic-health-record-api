@@ -12,4 +12,5 @@ public interface IPatientService
     Task<List<Patient>> GetAllPatients();
     Task<(Patient, bool)> UpsertPatient(Patient patient);
     Task<bool> DeletePatient(Guid id);
+    Task<Patient?> SubmitTest(string mrn, string orderNumber, string result);
 }
