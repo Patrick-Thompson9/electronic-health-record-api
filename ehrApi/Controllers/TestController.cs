@@ -26,7 +26,7 @@ public class TestsController : ControllerBase
         Order? order = await _orderService.GetOrder(request.OrderId);
         if (order == null)
         {
-            return BadRequest("Invalid OrderId");
+            return BadRequest($"Invalid OrderId: {request.OrderId}");
         }
 
         Test test = new(        // maybe this (and other examples) should be moved to the services to separate all logic
@@ -74,6 +74,11 @@ public class TestsController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpsertTest(Guid id, UpsertTestRequest request)
     {
+        Order? order = await _orderService.GetOrder(request.OrderId);
+
+        if (order == null) return BadRequest($"No order exists with ID: {request.OrderId}");
+
+
         Test test = new(
             id,
             request.OrderId,
@@ -82,7 +87,10 @@ public class TestsController : ControllerBase
             DateTime.UtcNow
         );
 
-        (Test newTest, bool wasCreated) = await _testService.UpsertTest(test);
+        (Test newTest, bool wasCreated, bool invalidMatch) = await _testService.UpsertTest(test);
+
+        if (invalidMatch) return BadRequest($"Order with ID: {request.OrderId} already has a test with an ID that does not match the test ID passed: {id}");
+
 
         TestResponse response = newTest.ToResponse();
         return wasCreated ? CreatedAtAction(

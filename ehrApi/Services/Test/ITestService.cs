@@ -7,6 +7,6 @@ public interface ITestService
     Task CreateTest(Test test);
     Task<Test?> GetTest(Guid id);
     Task<List<Test>> GetAllTests();
-    Task<(Test, bool)> UpsertTest(Test test);
+    Task<(Test, bool, bool)> UpsertTest(Test test);
     Task<bool> DeleteTest(Guid id);
 }

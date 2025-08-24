@@ -1,3 +1,3 @@
-@id=0f3933c4-fd3f-4162-babf-ff786e9ba45b
+@id=5dccffc0-f354-4e10-9de5-dbb4126d29d7
 
 DELETE http://localhost:5107/api/orders/{{id}}

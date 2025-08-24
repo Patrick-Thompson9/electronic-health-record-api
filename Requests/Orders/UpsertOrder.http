@@ -4,7 +4,7 @@ PUT http://localhost:5107/api/orders/{{id}}
 Content-Type: application/json
 
 {
-    "PatientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
-    "OrderType": "C# !!",
+    "PatientId": "08aa1011-cf1f-4ce1-9956-b06d5ad004c1",
+    "OrderType": "TypeScript",
     "Notes": "Test order notes."
 }

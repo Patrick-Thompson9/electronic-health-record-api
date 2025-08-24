@@ -93,6 +93,10 @@ public class OrdersController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpsertOrder(Guid id, UpsertOrderRequest request)
     {
+
+        Patient? patient = await _patientService.GetPatient(request.PatientId);
+        if (patient == null) return BadRequest($"No patient exists with ID: {request.PatientId}");
+
         Order order = new(
             id,
             request.PatientId,

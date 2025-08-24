@@ -1,5 +1,6 @@
 using ehrApi.Data;
 using ehrApi.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace ehrApi.Services.Tests;
@@ -31,9 +32,10 @@ public class TestService : ITestService
         .ToListAsync();
     }
 
-    public async Task<(Test, bool)> UpsertTest(Test test)
+    public async Task<(Test, bool, bool)> UpsertTest(Test test)
     {
         bool wasCreated;
+        bool invalidMatch = false;
 
         Test? existingTest = await _context.Tests.FindAsync(test.Id);
         if (existingTest == null)
@@ -43,15 +45,20 @@ public class TestService : ITestService
         }
         else
         {
+            if (existingTest.OrderId != test.OrderId)
+            {
+                wasCreated = false;
+                invalidMatch = true;
+                return (test, wasCreated, invalidMatch);
+            }
             existingTest.Result = test.Result;
-            existingTest.OrderId = test.OrderId;
             existingTest.LastUpdated = DateTime.UtcNow;
             existingTest.Order = test.Order;
             await _context.SaveChangesAsync();
 
             wasCreated = false;
         }
-        return (existingTest ?? test, wasCreated);
+        return (existingTest ?? test, wasCreated, invalidMatch);
     }
 
     public async Task<bool> DeleteTest(Guid id)
