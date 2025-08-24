@@ -7,14 +7,4 @@ Content-Type: application/json
     "FirstName": "Sue",
     "LastName": "Thompson",
     "DateOfBirth": "1963-10-22",
-    "Orders":
-    [
-        {
-            "id": "0f3933c4-fd3f-4162-babf-ff786e9ba45b",
-            "patientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
-            "orderNumber": "000000001",
-            "orderType": "C# !!",
-            "Notes": "Test Upsert"
-        }
-    ]
 }
