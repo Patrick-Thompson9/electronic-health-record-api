@@ -1,6 +1,5 @@
 using ehrApi.Data;
 using ehrApi.Models;
-using ehrApi.Services.Patients;
 using Microsoft.EntityFrameworkCore;
 
 namespace ehrApi.Services.Orders;
@@ -64,8 +63,7 @@ public class OrderService : IOrderService
             existingOrder.OrderType = order.OrderType;
             existingOrder.Notes = order.Notes;
             existingOrder.LastUpdated = DateTime.UtcNow;
-            existingOrder.Patient = order.Patient;
-            existingOrder.PatientId = order.PatientId;
+            existingOrder.PatientId = order.PatientId;  // Only set the foreign key
             await _context.SaveChangesAsync();
 
             wasCreated = false;

@@ -1,3 +1,4 @@
+using ehrApi.Contracts.Test;
 using ehrApi.Models;
 
 namespace ehrApi.Services.Patients;
@@ -12,5 +13,5 @@ public interface IPatientService
     Task<List<Patient>> GetAllPatients();
     Task<(Patient, bool)> UpsertPatient(Patient patient);
     Task<bool> DeletePatient(Guid id);
-    Task<Patient?> SubmitTest(string mrn, string orderNumber, string result);
+    Task<Patient?> SubmitTest(SubmitTestRequest request);
 }

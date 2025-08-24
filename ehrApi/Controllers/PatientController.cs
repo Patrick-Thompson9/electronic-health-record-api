@@ -131,7 +131,7 @@ public class PatientsController : ControllerBase
     [HttpPost("submit-test")]
     public async Task<ActionResult> SubmitTest(SubmitTestRequest request)
     {
-        Patient? patient = await _patientService.SubmitTest(request.MRN, request.OrderNumber, request.Result);
+        Patient? patient = await _patientService.SubmitTest(request);
 
         if (patient == null) return NotFound($"Invalid MRN: {request.MRN} or Order Number: {request.OrderNumber}");
 

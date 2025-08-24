@@ -4,5 +4,6 @@ public record SubmitTestRequest(
     string MRN,
     string OrderNumber,
     string OrderType,
-    string Result
+    string Result,
+    string? Notes
 );

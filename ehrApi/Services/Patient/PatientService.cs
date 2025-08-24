@@ -4,6 +4,7 @@ using ehrApi.Services.Orders;
 using ehrApi.Services.Tests;
 using ehrApi.Services.Generators;
 using Microsoft.EntityFrameworkCore;
+using ehrApi.Contracts.Test;
 
 namespace ehrApi.Services.Patients;
 
@@ -137,17 +138,39 @@ public class PatientService : IPatientService
         return false;
     }
 
-    public async Task<Patient?> SubmitTest(string mrn, string orderNumber, string result)
+    public async Task<Patient?> SubmitTest(SubmitTestRequest request)
     {
+        var (mrn, orderNumber, orderType, result, notes) = request;
+
         Patient? patient = await GetPatientByMrn(mrn);
         if (patient == null) return null;
 
-        Order? order = patient.Orders.FirstOrDefault(order => order.OrderNumber == orderNumber);
+        // I originally had logic in here to create the order if it didnt exist however my implementation
+        // allowed users to specify their own order number which could cause problems with how I am 
+        // currently generating order numbers. Also if the order number didn't exist I will assume this
+        // was a mistake by the user and not create a new order with a generated (different) order number.
+
+        Order? order = await _orderService.GetOrderByOrderNumber(orderNumber);
+
+        // return null if order number doesnt exist or belongs to patient with different MRN
         if (order == null) return null;
+        if (order.PatientId != patient.Id) return null;
+
+        order = new(
+                order.Id,
+                patient.Id,
+                order.OrderNumber,
+                orderType,
+                order.DateTimeCreated,
+                DateTime.UtcNow,
+                notes
+            );
+
+        (Order newOrder, bool wasCreated) = await _orderService.UpsertOrder(order);
 
         Test test = new(
             Guid.NewGuid(),
-            order.Id,
+            newOrder.Id,
             result,
             DateTime.UtcNow,
             DateTime.UtcNow
