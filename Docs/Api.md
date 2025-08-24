@@ -4,6 +4,9 @@ See HTTP files in Requests folder for testing the following routes.
 
 ## Table of Contents
 
+0. [Exercise Notes](#exercise-notes)
+   - [0.1 How to Run](#01-how-to-run)
+   - [0.2 What I Would do Differently](#what-i-would-do-differently)
 1. [Patients](#patients)
    - [1.1 Create](#11-create-patient)
    - [1.2 Read](#12-read-patients)
@@ -20,11 +23,43 @@ See HTTP files in Requests folder for testing the following routes.
    - [3.3 Update](#33-update-test)
    - [3.4 Delete](#34-delete-test)
 
+# Exercise Notes
+
+## 0.1 How to Run
+
+To run the application enter the following command.
+
+```
+dotnet run --project .\ehrApi\
+```
+
+To interact with the API, use the HTTP files. From these, you can copy the requests and use them in Postman, or if you are using VS Code with the REST Client, you can use the send button inside the http files. Note that the example JSON in this `Api.md` file contains placeholder values and will not function without replacing the data.
+
+## 0.2 What I Would do Differently
+
+There are several improvements in multiple categories I would like to make to this app in the near future. These categories include code architecture, functionality, endpoints design, and general improvements.
+
+#### Architecture
+
+For the architecture of this project, I wanted to follow Clean architecture to maintain separation of concerns to allow flexibility. However, examples such as entity creation within the controllers show this was not executed well. I would like to learn more of architecture best practices and restructure this app.
+
+#### Functionality
+
+There are some features I would like to have added such as the ability to include orders and tests within the body of a create patient request. I purposely did not allow the option to edit MRNs and order numbers, though this could be explored more in the future.
+
+#### API Design
+
+I feel that the use of GUIDs have lead to me using clunky endpoints for my API. From a user's perspective, it would make more sense to access patients and orders by their category numbers. This causes endpoints like `/patients/mrn/...` to feel less natural. I would like to rethink how I can have more intuitive endpoints with also the benefits of GUIDs.
+
+#### General Improvements
+
+There are some best practices any API project should have which I did not add due to the scope of this exercise. Although I added a limit query parameter to my `GetAll...` functions, I would like to add pagination, optional sorting, and filtering. Another important feature I would like to add are tests, logging, and better error handling.
+
 # Patients
 
 ## 1.1 Create Patient
 
-Note that associated objects can not be created during the creation of the parent object. For example, when creating a patient, it is not possible to create an associated order inside the same request.
+Note that associated objects cannot be created during the creation of the parent object. For example, when creating a patient, it is not possible to create an associated order inside the same request.
 
 ### Post Request
 
@@ -161,7 +196,7 @@ GET /patients/mrn/0000000001
 
 ## 1.3 Update Patient
 
-Note that you can not update a patients ID, MRN, or Orders. To update a patients orders and associated tests you must use the endpoint specific to the object you want to edit.
+Note that you cannot update a patient's ID, MRN, or Orders. To update a patients orders and associated tests you must use the endpoint specific to the object you want to edit.
 
 If an update request contains information of a patient that doesn't exist, it will create it.
 
@@ -215,7 +250,7 @@ DELETE /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0
 
 ## 2.1 Create Order
 
-Note that associated objects can not be created during the creation of the parent object. For example, when creating an order, it is not possible to create an associated test inside the same request.
+Note that associated objects cannot be created during the creation of the parent object. For example, when creating an order, it is not possible to create an associated test inside the same request.
 
 ### Post Request
 
@@ -245,7 +280,7 @@ Content-Type: application/json
     "dateTimeCreated": "2025-08-18T12:00:00",
     "lastUpdated": "2025-08-19T12:00:00",
     "notes" "Sample note text.":
-    "Test": null
+    "test": null
 }
 ```
 
@@ -281,7 +316,7 @@ GET /orders
         "dateTimeCreated": "2025-08-18T13:00:00",
         "lastUpdated": "2025-08-18T13:00:00",
         "notes": "Example order notes 2",
-        "tests": null
+        "test": null
     },
     {
         "id": "D5bd2784-039a-4c4f-9v5c-799fe796f8e0",
@@ -291,7 +326,7 @@ GET /orders
         "dateTimeCreated": "2025-08-18T13:00:00",
         "lastUpdated": "2025-08-18T13:00:00",
         "notes": "Example order notes",
-        "tests": null
+        "test": null
     }
 ]
 ```
@@ -319,7 +354,7 @@ GET /orders/D5bd2784-039a-4c4f-9v5c-799fe796f8e0
     "dateTimeCreated": "2025-08-18T13:00:00",
     "lastUpdated": "2025-08-18T13:00:00",
     "notes": "Example order notes",
-    "tests": null
+    "test": null
 }
 ```
 
@@ -346,7 +381,7 @@ GET /orders/orderNumber/0000000001
     "dateTimeCreated": "2025-08-18T13:00:00",
     "lastUpdated": "2025-08-18T13:00:00",
     "notes": "Example order notes",
-    "tests": null
+    "test": null
 }
 ```
 
@@ -374,7 +409,7 @@ GET /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0/orders
         "dateTimeCreated": "2025-08-18T13:00:00",
         "lastUpdated": "2025-08-18T13:00:00",
         "notes": "Example order notes 2",
-        "tests": null
+        "test": null
     },
     {
         "id": "D5bd2784-039a-4c4f-9v5c-799fe796f8e0",
@@ -384,14 +419,14 @@ GET /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0/orders
         "dateTimeCreated": "2025-08-18T13:00:00",
         "lastUpdated": "2025-08-18T13:00:00",
         "notes": "Example order notes",
-        "tests": null
+        "test": null
     }
 ]
 ```
 
 ## 2.3 Update Order
 
-Note that you can not update an order's ID, order number, or test. To update an order's test you must use the endpoint specific to the object you want to edit (/tests).
+Note that you cannot update an order's ID, order number, or test. To update an order's test you must use the endpoint specific to the object you want to edit (/tests).
 
 If an update request contains information of an order that doesn't exist, it will create it.
 
@@ -421,7 +456,7 @@ Content-Type: application/json
     "dateTimeCreated": "2025-08-18T13:00:00",
     "lastUpdated": "2025-08-18T13:00:00",
     "notes": "Example order notes.",
-    "tests": null
+    "test": null
 }
 ```
 
@@ -445,7 +480,7 @@ DELETE /orders/f5bd2784-029a-4c4f-905c-799fee96f8e0
 
 ## 3.1 Create Test
 
-Note that associated objects can not be created during the creation of the parent object. For example, when creating an order, it is not possible to create an associated test inside the same request.
+Note that associated objects cannot be created during the creation of the parent object. For example, when creating an order, it is not possible to create an associated test inside the same request.
 
 Note that creating a test for an order that already contains a test, the existing test will be overwritten by the new test.
 
@@ -536,7 +571,7 @@ Content-Type: application/json
 
 Note this endpoint has an optional search parameter called `limit` which limits the number of returned results. The default value is `limit = 20`.
 
-tests are returned in descending order using their date of creation.
+Tests are returned in descending order using their date of creation.
 
 ### Get Request
 
@@ -595,7 +630,7 @@ GET /tests/2cc5e8e7-34de-4708-882f-cbd0939a418c
 
 ## 3.3 Update Test
 
-Note that you can not update an test's ID.
+Note that you cannot update an test's ID.
 
 If an update request contains information of a test that doesn't exist, it will create it.
 
