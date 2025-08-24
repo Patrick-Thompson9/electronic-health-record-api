@@ -5,20 +5,20 @@ See HTTP files in Requests folder for testing the following routes.
 ## Table of Contents
 
 1. [Patients](#patients)
-   [1.1 Create](#11-create-patient)
-   [1.2 Read](#12-read-patients)
-   [1.3 Update](#13-update-patient)
-   [1.4 Delete](#14-delete-patient)
+   - [1.1 Create](#11-create-patient)
+   - [1.2 Read](#12-read-patients)
+   - [1.3 Update](#13-update-patient)
+   - [1.4 Delete](#14-delete-patient)
 2. [Orders](#orders)
-   [2.1 Create](#21-create-order)
-   [2.2 Read](#12-read-patients)
-   [2.3 Update](#13-update-patient)
-   [2.4 Delete](#14-delete-patient)
+   - [2.1 Create](#21-create-order)
+   - [2.2 Read](#22-read-order)
+   - [2.3 Update](#23-update-order)
+   - [2.4 Delete](#24-delete-order)
 3. [Tests](#tests)
-   [3.1 Create](#31-create-test)
-   [3.2 Read](#32-read-test)
-   [3.3 Update](#33-update-test)
-   [3.4 Delete](#34-delete-test)
+   - [3.1 Create](#31-create-test)
+   - [3.2 Read](#32-read-test)
+   - [3.3 Update](#33-update-test)
+   - [3.4 Delete](#34-delete-test)
 
 # Patients
 
@@ -51,10 +51,10 @@ Content-Type: application/json
     "mrn": "0000000001",
     "firstName": "John",
     "lastName": "Doe",
-    "dateOfBirth": "2000-01-06
+    "dateOfBirth": "2000-01-06",
     "dateTimeCreated": "2025-08-18T12:00:00",
     "lastUpdated": "2025-08-19T12:00:00",
-    "Orders": []
+    "orders": []
 }
 ```
 
@@ -87,20 +87,20 @@ GET /patients
         "mrn": "0000000002",
         "firstName": "Jane",
         "lastName": "Doe",
-        "dateOfBirth": "2000-03-12
+        "dateOfBirth": "2000-03-12",
         "dateTimeCreated": "2025-08-19T12:00:00",
         "lastUpdated": "2025-08-19T12:00:00",
-        "Orders": []
+        "orders": []
     },
     {
         "id": "f5bd2784-029a-4c4f-905c-799fee96f8e0",
         "mrn": "0000000001",
         "firstName": "John",
         "lastName": "Doe",
-        "dateOfBirth": "2000-01-06
+        "dateOfBirth": "2000-01-06",
         "dateTimeCreated": "2025-08-18T12:00:00",
         "lastUpdated": "2025-08-19T11:00:00",
-        "Orders": []
+        "orders": []
     }
 ]
 ```
@@ -125,10 +125,10 @@ GET /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0
     "mrn": "0000000001",
     "firstName": "John",
     "lastName": "Doe",
-    "dateOfBirth": "2000-01-06
+    "dateOfBirth": "2000-01-06",
     "dateTimeCreated": "2025-08-18T12:00:00",
     "lastUpdated": "2025-08-19T12:00:00",
-    "Orders": []
+    "orders": []
 }
 ```
 
@@ -152,10 +152,10 @@ GET /patients/mrn/0000000001
     "mrn": "0000000001",
     "firstName": "John",
     "lastName": "Doe",
-    "dateOfBirth": "2000-01-06
+    "dateOfBirth": "2000-01-06",
     "dateTimeCreated": "2025-08-18T12:00:00",
     "lastUpdated": "2025-08-19T12:00:00",
-    "Orders": []
+    "orders": []
 }
 ```
 
@@ -174,7 +174,7 @@ Content-Type: application/json
 {
     "FirstName": "John",
     "LastName": "Doe",
-    "DateOfBirth": "2000-01-06",
+    "DateOfBirth": "2000-01-06"
 }
 ```
 
@@ -188,10 +188,10 @@ Content-Type: application/json
     "mrn": "0000000001",
     "firstName": "John",
     "lastName": "Doe",
-    "dateOfBirth": "2000-01-06
+    "dateOfBirth": "2000-01-06",
     "dateTimeCreated": "2025-08-18T12:00:00",
     "lastUpdated": "2025-08-19T12:00:00",
-    "Orders": []
+    "orders": []
 }
 ```
 
@@ -278,9 +278,9 @@ GET /orders
         "patientId": "00000000-0000-0000-000000002",
         "orderNumber": "0000000002",
         "orderType": "Flu",
-        "dateTimeCreated": "2025-08-18T13:00:00"
-        "lastUpdated": "2025-08-18T13:00:00"
-        "notes":"Example order notes 2",
+        "dateTimeCreated": "2025-08-18T13:00:00",
+        "lastUpdated": "2025-08-18T13:00:00",
+        "notes": "Example order notes 2",
         "tests": null
     },
     {
@@ -288,9 +288,9 @@ GET /orders
         "patientId": "00000000-0000-0000-000000001",
         "orderNumber": "0000000001",
         "orderType": "COVID",
-        "dateTimeCreated": "2025-08-18T13:00:00"
-        "lastUpdated": "2025-08-18T13:00:00"
-        "notes":"Example order notes",
+        "dateTimeCreated": "2025-08-18T13:00:00",
+        "lastUpdated": "2025-08-18T13:00:00",
+        "notes": "Example order notes",
         "tests": null
     }
 ]
@@ -316,9 +316,9 @@ GET /orders/D5bd2784-039a-4c4f-9v5c-799fe796f8e0
     "patientId": "00000000-0000-0000-000000001",
     "orderNumber": "0000000001",
     "orderType": "COVID",
-    "dateTimeCreated": "2025-08-18T13:00:00"
-    "lastUpdated": "2025-08-18T13:00:00"
-    "notes":"Example order notes",
+    "dateTimeCreated": "2025-08-18T13:00:00",
+    "lastUpdated": "2025-08-18T13:00:00",
+    "notes": "Example order notes",
     "tests": null
 }
 ```
@@ -343,9 +343,9 @@ GET /orders/orderNumber/0000000001
     "patientId": "00000000-0000-0000-000000001",
     "orderNumber": "0000000001",
     "orderType": "COVID",
-    "dateTimeCreated": "2025-08-18T13:00:00"
-    "lastUpdated": "2025-08-18T13:00:00"
-    "notes":"Example order notes",
+    "dateTimeCreated": "2025-08-18T13:00:00",
+    "lastUpdated": "2025-08-18T13:00:00",
+    "notes": "Example order notes",
     "tests": null
 }
 ```
@@ -371,9 +371,9 @@ GET /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0/orders
         "patientId": "f5bd2784-029a-4c4f-905c-799fee96f8e0",
         "orderNumber": "0000000002",
         "orderType": "Flu",
-        "dateTimeCreated": "2025-08-18T13:00:00"
-        "lastUpdated": "2025-08-18T13:00:00"
-        "notes":"Example order notes 2",
+        "dateTimeCreated": "2025-08-18T13:00:00",
+        "lastUpdated": "2025-08-18T13:00:00",
+        "notes": "Example order notes 2",
         "tests": null
     },
     {
@@ -381,9 +381,9 @@ GET /patients/f5bd2784-029a-4c4f-905c-799fee96f8e0/orders
         "patientId": "f5bd2784-029a-4c4f-905c-799fee96f8e0",
         "orderNumber": "0000000001",
         "orderType": "COVID",
-        "dateTimeCreated": "2025-08-18T13:00:00"
-        "lastUpdated": "2025-08-18T13:00:00"
-        "notes":"Example order notes",
+        "dateTimeCreated": "2025-08-18T13:00:00",
+        "lastUpdated": "2025-08-18T13:00:00",
+        "notes": "Example order notes",
         "tests": null
     }
 ]
@@ -418,9 +418,9 @@ Content-Type: application/json
     "patientId": "D5bd2784-039a-4c4f-9v5c-799fe796f8e0",
     "orderNumber": "0000000001",
     "orderType": "COVID",
-    "dateTimeCreated": "2025-08-18T13:00:00"
-    "lastUpdated": "2025-08-18T13:00:00"
-    "notes":"Example order notes.",
+    "dateTimeCreated": "2025-08-18T13:00:00",
+    "lastUpdated": "2025-08-18T13:00:00",
+    "notes": "Example order notes.",
     "tests": null
 }
 ```
@@ -457,8 +457,7 @@ Content-Type: application/json
 
 {
     "OrderId": "94a7bcb9-41ef-430c-bc95-6f139a503ebd",
-    "Result": "Positive",
-    "DateTimeOrdered": "2023-10-01T12:00:00"
+    "Result": "Positive"
 }
 ```
 
@@ -475,6 +474,59 @@ Content-Type: application/json
     "result": "Positive",
     "dateTimeCreated": "2025-08-23T13:47:16.7730237",
     "lastUpdated": "2025-08-23T13:47:16.7730238"
+}
+```
+
+## Create Test Using Submit Test
+
+Note using the submit-test endpoint requires a valid MRN of an existing patient and a valid order number of an existing order associated to the patient specified by the MRN. If the order number exists but is attached to a different patient, it will return `404 NotFound`.
+
+```
+POST /patients/submit-test
+Content-Type: application/json
+
+{
+    "MRN": "0000000001",
+    "OrderNumber": "0000000005",
+    "OrderType": "TEST Submit",
+    "Result": "Positive",
+    "Notes": "Submit Test example notes."
+}
+```
+
+### Post Response
+
+```
+201 Created
+```
+
+```
+{
+  "id": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
+  "mrn": "0000000001",
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "2000-01-07",
+  "dateTimeCreated": "2025-08-22T17:53:31.9718845",
+  "lastUpdated": "2025-08-23T10:43:06.5890532",
+  "orders": [
+    {
+      "id": "bacc512b-4304-4837-8377-6308f11a82c4",
+      "patientId": "f8d0ee4e-abc0-4ed0-b680-dbbd34b2d6e1",
+      "orderNumber": "0000000001",
+      "orderType": "TEST Submit",
+      "dateTimeCreated": "2025-08-24T15:17:06.0361912",
+      "lastUpdated": "2025-08-24T15:32:51.3261139Z",
+      "notes": "Submit Test example notes.",
+      "test": {
+        "id": "74df345d-1d4b-4688-afe6-86b241e029d0",
+        "orderId": "bacc512b-4304-4837-8377-6308f11a82c4",
+        "result": "Positive",
+        "dateTimeCreated": "2025-08-24T15:32:51.4153461Z",
+        "lastUpdated": "2025-08-24T15:32:51.4153462Z"
+      }
+    }
+  ]
 }
 ```
 
@@ -555,7 +607,6 @@ Content-Type: application/json
 
 {
     "OrderId": "ca275ab8-0510-415e-9373-97e02f94ced9",
-    "DateTimeOrdered": "2023-10-01T12:00:00",
     "Result": "Positive"
 }
 ```
