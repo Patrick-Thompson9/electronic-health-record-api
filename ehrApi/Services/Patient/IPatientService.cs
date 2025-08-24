@@ -5,7 +5,7 @@ namespace ehrApi.Services.Patients;
 public interface IPatientService
 {
     Task CreatePatient(Patient patient);
-    Task CreatePatientWithOrders(Patient Patient);
+    // Task CreatePatientWithOrders(Patient Patient); TODO: edit contracts and restore this function
     Task<Patient?> GetPatient(Guid id);
     Task<Patient?> GetPatientByMrn(string mrn);
     Task<List<Order>?> GetOrdersByMrn(string mrn);

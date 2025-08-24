@@ -1,3 +1,3 @@
-@id=08aa1011-cf1f-4ce1-9956-b06d5ad004c0
+@id=c79fdd07-43c5-4d46-b6c9-3d5b87d47586
 
 GET http://localhost:5107/api/patients/{{id}}

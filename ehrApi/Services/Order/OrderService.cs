@@ -18,6 +18,8 @@ public class OrderService : IOrderService
     {
         _context.Orders.Add(order);
 
+        // I added this save check so that when used by the commented out CreatePatientWithOrders function
+        // it would not save over and over for each order instead of once at the end.
         if (save) await _context.SaveChangesAsync();
     }
 

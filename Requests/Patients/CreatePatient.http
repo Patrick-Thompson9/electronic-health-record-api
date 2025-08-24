@@ -2,7 +2,7 @@ POST http://localhost:5107/api/patients
 Content-Type: application/json
 
 {
-    "FirstName": "Brittany",
-    "LastName": "Guitard",
-    "DateOfBirth": "2000-03-12"
+    "FirstName": "Remi",
+    "LastName": "Thompson",
+    "DateOfBirth": "2006-10-31"
 }

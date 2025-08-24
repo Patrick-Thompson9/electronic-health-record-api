@@ -32,27 +32,32 @@ public class PatientService : IPatientService
         await _context.SaveChangesAsync();
     }
 
-    public async Task CreatePatientWithOrders(Patient patient)
-    {
-        //TODO: Make transactional so errors mid way are caught
-        _context.Patients.Add(patient);
-        foreach (var orderReq in patient.Orders)
-        {
-            Order order = new(
-                Guid.NewGuid(),
-                patient.Id,
-                await _orderNumberGenerator.GenerateOrderNumber(),
-                orderReq.OrderType,
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                orderReq.Notes
-                );
+    // This was a service function to create orders inside the body of a create patient request.
+    // I commented it out since the contracts/models aren't properly set up to perform this. Also
+    // there is an error in this function anyway, an always blank patient.Orders is being examined
+    // here but really this function should receive the request.Orders separately and use that.
 
-            await _orderService.CreateOrder(order, false);
-        }
-        ;
-        await _context.SaveChangesAsync();
-    }
+    // public async Task CreatePatientWithOrders(Patient patient)
+    // {
+    //     //TODO: Make transactional so errors mid way are caught
+    //     _context.Patients.Add(patient);
+    //     foreach (var orderReq in patient.Orders)
+    //     {
+    //         Order order = new(
+    //             Guid.NewGuid(),
+    //             patient.Id,
+    //             await _orderNumberGenerator.GenerateOrderNumber(),
+    //             orderReq.OrderType,
+    //             DateTime.UtcNow,
+    //             DateTime.UtcNow,
+    //             orderReq.Notes
+    //             );
+
+    //         await _orderService.CreateOrder(order, false);
+    //     }
+    //     ;
+    //     await _context.SaveChangesAsync();
+    // }
 
     public async Task<Patient?> GetPatient(Guid id)
     {

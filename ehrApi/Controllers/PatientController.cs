@@ -33,18 +33,23 @@ public class PatientsController : ControllerBase
             request.LastName,
             request.DateOfBirth,
             DateTime.UtcNow,
-            DateTime.UtcNow // TODO: actually create orders map order creation service?
+            DateTime.UtcNow
         );
 
-        // create orders if they were included in request.
-        if (request.Orders?.Count > 0)
-        {
-            await _patientService.CreatePatientWithOrders(patient);
-        }
-        else
-        {
-            await _patientService.CreatePatient(patient);
-        }
+        // This was a section to create orders that were included in the body of a create patient request.
+        // But to do this, the user forced to pass a dummy PatientId value. To properly implement this I
+        // would have to make PatientId optional and make larger scale changes. 
+
+        // if (request.Orders?.Count > 0)
+        // {
+        //     await _patientService.CreatePatientWithOrders(patient);
+        // }
+        // else
+        // {
+        //     await _patientService.CreatePatient(patient);
+        // }
+
+        await _patientService.CreatePatient(patient);
 
         PatientResponse response = patient.ToResponse();
         return CreatedAtAction(
