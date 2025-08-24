@@ -27,13 +27,14 @@ See HTTP files in Requests folder for testing the following routes.
 
 ## 0.1 How to Run
 
-To run the application enter the following command.
+1. Ensure .NET 9.0 SDK is installed.
+2. `cd` into solution directory.
+3. Restore dependencies: `dotnet restore`.
+4. Build the solution: `dotnet build`.
+5. Update database: `dotnet ef database update --project ehrApi`.
+6. Run the app: `dotnet run --project .\ehrApi\`.
 
-```
-dotnet run --project .\ehrApi\
-```
-
-To interact with the API, use the HTTP files. From these, you can copy the requests and use them in Postman, or if you are using VS Code with the REST Client, you can use the send button inside the http files. Note that the example JSON in this `Api.md` file contains placeholder values and will not function without replacing the data.
+To interact with the API, use the HTTP files. From these you can copy the requests and use them in Postman, or if you are using VS Code with the REST Client extension, you can use the send button inside the http files. Note that the example JSON in this `Api.md` file contains placeholder values and will not function without replacing the data.
 
 ## 0.2 What I Would do Differently
 
