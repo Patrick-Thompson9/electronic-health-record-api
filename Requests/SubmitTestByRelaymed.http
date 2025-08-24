@@ -3,7 +3,8 @@ Content-Type: application/json
 
 {
     "MRN": "0000000001",
-    "OrderNumber": "0000000004",
+    "OrderNumber": "0000000005",
     "OrderType": "TEST Submit",
-    "Result": "Positive"
+    "Result": "Positive",
+    "Notes": "Submit Test example notes."
 }
