@@ -26,7 +26,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost()]
-    public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
+    public async Task<ActionResult<OrderResponse>> CreateOrder(CreateOrderRequest request)
     {
         // first check if patient is real
         Patient? patient = await _patientService.GetPatient(request.PatientId);
@@ -55,7 +55,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
+    public async Task<ActionResult<List<OrderResponse>>> GetAllOrders([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Order> orders = await _orderService.GetAllOrders();
         List<Order> limitedOrders = orders.Take(limit).ToList();
@@ -66,7 +66,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet("orderNumber/{orderNumber}")]
-    public async Task<IActionResult> GetOrderByOrderNumber(string orderNumber)
+    public async Task<ActionResult<OrderResponse>> GetOrderByOrderNumber(string orderNumber)
     {
         Order? order = await _orderService.GetOrderByOrderNumber(orderNumber);
         if (order == null) return NotFound($"No order found with order number: {orderNumber}");
@@ -76,7 +76,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetOrder(Guid id)
+    public async Task<ActionResult<OrderResponse>> GetOrder(Guid id)
     {
 
         Order? order = await _orderService.GetOrder(id);
@@ -91,7 +91,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpsertOrder(Guid id, UpsertOrderRequest request)
+    public async Task<ActionResult<OrderResponse>> UpsertOrder(Guid id, UpsertOrderRequest request)
     {
 
         Patient? patient = await _patientService.GetPatient(request.PatientId);

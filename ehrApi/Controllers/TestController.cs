@@ -20,7 +20,7 @@ public class TestsController : ControllerBase
     }
 
     [HttpPost()]
-    public async Task<IActionResult> CreateTest(CreateTestRequest request)
+    public async Task<ActionResult<TestResponse>> CreateTest(CreateTestRequest request)
     {
         // first check if order is real
         Order? order = await _orderService.GetOrder(request.OrderId);
@@ -48,18 +48,18 @@ public class TestsController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> GetAllTests([FromQuery] int limit = 20) // here I could include more parameters
+    public async Task<ActionResult<List<TestResponse>>> GetAllTests([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Test> tests = await _testService.GetAllTests();
         List<Test> limitedTests = tests.Take(limit).ToList();
 
-        List<TestResponse> response = tests.Select(test => test.ToResponse()).ToList();
+        List<TestResponse> response = limitedTests.Select(test => test.ToResponse()).ToList();
 
         return Ok(response);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetTest(Guid id)
+    public async Task<ActionResult<TestResponse>> GetTest(Guid id)
     {
         Test? test = await _testService.GetTest(id);
         if (test == null)
@@ -72,7 +72,7 @@ public class TestsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpsertTest(Guid id, UpsertTestRequest request)
+    public async Task<ActionResult<TestResponse>> UpsertTest(Guid id, UpsertTestRequest request)
     {
         Order? order = await _orderService.GetOrder(request.OrderId);
 

@@ -42,7 +42,7 @@ There are several improvements in multiple categories I would like to make to th
 
 #### Architecture
 
-For the architecture of this project, I wanted to follow Clean architecture to maintain separation of concerns to allow flexibility. However, examples such as entity creation within the controllers show this was not executed well. I would like to learn more of architecture best practices and restructure this app.
+For the architecture of this project, I wanted to follow Clean architecture to maintain separation of concerns to allow flexibility. However, examples such as entity creation and logic within the controllers show this was not executed well. I would like to learn more of architecture best practices and restructure this app.
 
 #### Functionality
 

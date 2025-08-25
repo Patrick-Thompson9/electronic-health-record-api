@@ -23,7 +23,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpPost()]
-    public async Task<ActionResult> CreatePatient(CreatePatientRequest request)
+    public async Task<ActionResult<PatientResponse>> CreatePatient(CreatePatientRequest request)
 
     {
         Patient patient = new(
@@ -59,7 +59,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<ActionResult> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
+    public async Task<ActionResult<List<PatientResponse>>> GetAllPatients([FromQuery] int limit = 20) // here I could include more parameters
     {
         List<Patient> patients = await _patientService.GetAllPatients();
         List<Patient> limitedPatients = patients.Take(limit).ToList();
@@ -70,7 +70,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult> GetPatient(Guid id)
+    public async Task<ActionResult<PatientResponse>> GetPatient(Guid id)
     {
         Patient? patient = await _patientService.GetPatient(id);
         if (patient == null) return NotFound();
@@ -80,7 +80,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet("mrn/{mrn}")]
-    public async Task<ActionResult> GetPatientByMrn(string mrn)
+    public async Task<ActionResult<PatientResponse>> GetPatientByMrn(string mrn)
     {
         Patient? patient = await _patientService.GetPatientByMrn(mrn);
         if (patient == null) return NotFound($"Did not find patient with MRN {mrn}");
@@ -90,7 +90,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet("mrn/{mrn}/orders")]
-    public async Task<ActionResult> GetOrdersByMrn(string mrn)
+    public async Task<ActionResult<List<OrderResponse>>> GetOrdersByMrn(string mrn)
     {
         List<Order>? orders = await _patientService.GetOrdersByMrn(mrn);
         if (orders == null) return NotFound($"Did not find patient with MRN {mrn}");
@@ -100,7 +100,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ActionResult> UpsertPatient(Guid id, UpsertPatientRequest request)
+    public async Task<ActionResult<PatientResponse>> UpsertPatient(Guid id, UpsertPatientRequest request)
     {
         Patient patient = new(
             id,
@@ -109,7 +109,7 @@ public class PatientsController : ControllerBase
             request.LastName,
             request.DateOfBirth,
             DateTime.UtcNow,
-            DateTime.UtcNow // TODO: actually create orders map order creation service?
+            DateTime.UtcNow
         );
 
         (Patient newPatient, bool wasCreated) = await _patientService.UpsertPatient(patient);
@@ -122,14 +122,14 @@ public class PatientsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult> DeletePatient(Guid id)
+    public async Task<IActionResult> DeletePatient(Guid id)
     {
         bool deleted = await _patientService.DeletePatient(id);
         return deleted ? NoContent() : NotFound();
     }
 
     [HttpPost("submit-test")]
-    public async Task<ActionResult> SubmitTest(SubmitTestRequest request)
+    public async Task<ActionResult<PatientResponse>> SubmitTest(SubmitTestRequest request)
     {
         Patient? patient = await _patientService.SubmitTest(request);
 
